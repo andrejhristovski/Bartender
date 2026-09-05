@@ -19,9 +19,12 @@ cocktails:
       - Combine spirits, oleo, syrup and bitters over ice; stir 40 turns.
       - Strain over one large block in a rocks glass.
       - Express the charred peel over the surface and drop it in.
-    body: |-
-      A rye old fashioned taken darker: the orange is burnt over coals before it goes
+    body: >-
+      A rye old fashioned taken darker: the orange is burnt over coals before it
+      goes
+
       in, so the drink reads smoky before it reads sweet. Stirred long over one block
+
       and left to open up in the glass.
   - title: Nightjar
     description: Rye, sweet vermouth and a spoonful of cherry brine.
@@ -39,12 +42,16 @@ cocktails:
       - item: Brandied cherries
         amount: 2
     steps:
-      - Stir the rye, vermouth, brine and bitters over cracked ice for 25 seconds.
+      - Stir the rye, vermouth, brine and bitters over cracked ice for 25
+        seconds.
       - Strain over one large cube in a chilled rocks glass.
       - Skewer two cherries and lay them across the rim.
-    body: |-
-      A Manhattan with the sweetness pulled back and the cherry pushed forward — the
+    body: >-
+      A Manhattan with the sweetness pulled back and the cherry pushed forward —
+      the
+
       brine does the work sugar usually does, so the drink finishes dry instead of
+
       sticky. Best made with a vermouth that has been open less than a week.
   - title: Smoke Signal
     description: Mezcal and amaro under a cloche of rosemary smoke.
@@ -64,14 +71,20 @@ cocktails:
       - item: Dried orange wheel
         amount: 1
     steps:
-      - Smoulder the rosemary and trap the smoke under an upturned glass for half a minute.
-      - Shake the mezcal, amaro, lime and agave hard with cubed ice for ten seconds.
+      - Smoulder the rosemary and trap the smoke under an upturned glass for
+        half a minute.
+      - Shake the mezcal, amaro, lime and agave hard with cubed ice for ten
+        seconds.
       - Strain into the smoked glass over fresh ice.
       - Garnish with the dried orange wheel and the spent rosemary.
-    body: |-
-      The smoke is doing something specific here: mezcal already carries smoke from the
+    body: >-
+      The smoke is doing something specific here: mezcal already carries smoke
+      from the
+
       roasting pit, and rosemary sits just to one side of it, so the two read as one
+
       long note rather than two competing ones. Don't let the rosemary catch flame —
+
       it should smoulder.
   - title: Velvet Hour
     description: A bourbon sour softened with amaro, served with a thick head.
@@ -91,11 +104,15 @@ cocktails:
     steps:
       - Dry shake everything without ice for fifteen seconds to build the foam.
       - Add cubed ice and shake hard for another twelve.
-      - Double strain into a chilled coupe and let the head settle before serving.
+      - Double strain into a chilled coupe and let the head settle before
+        serving.
       - Three drops of bitters on the foam, dragged through with a pick.
-    body: |-
-      The last drink of the night. Amaro takes the edge off the lemon and gives the
+    body: >-
+      The last drink of the night. Amaro takes the edge off the lemon and gives
+      the
+
       finish something bitter to land on, which keeps a sour this rich from cloying.
+
       The dry shake is not optional — it's the whole texture.
   - title: Paper Lantern
     description: Sake, yuzu and a green chartreuse whisper.
@@ -114,12 +131,16 @@ cocktails:
         amount: 1 sprig
     steps:
       - Chill the glass in the freezer for ten minutes.
-      - Shake the sake, Chartreuse, yuzu and cordial briefly with ice — eight seconds, no more.
+      - Shake the sake, Chartreuse, yuzu and cordial briefly with ice — eight
+        seconds, no more.
       - Fine strain into the frozen glass.
       - Slap a sprig of mint between your palms and rest it on the surface.
-    body: |-
-      Light and dry, and easy to overwork. Junmai sake carries yuzu without letting it
+    body: >-
+      Light and dry, and easy to overwork. Junmai sake carries yuzu without
+      letting it
+
       turn sharp, but it bruises if you shake it like a sour — keep it short and keep
+
       it cold. The mint is aromatic only; it never goes in the drink.
   - title: Salt Flats
     description: Tequila and grapefruit with a chilli-salt rim.
@@ -139,13 +160,25 @@ cocktails:
       - item: Chilli salt
         amount: for the rim
     steps:
-      - >-
-        Wet half the rim with a lime wedge and roll it through chilli salt — half, so there's a way
-        out.
+      - Wet half the rim with a lime wedge and roll it through chilli salt —
+        half, so there's a way out.
       - Build the tequila, juices and agave in the glass and fill with cubed ice.
       - Top with grapefruit soda poured from height.
       - Stir once, from the bottom.
-    body: |-
-      A paloma with the salt taken seriously. Rimming only half the glass lets whoever
+    body: >-
+      A paloma with the salt taken seriously. Rimming only half the glass lets
+      whoever
+
       is drinking it decide how much salt they want, which matters more than it
+
       sounds — the salt is what makes the grapefruit taste sweet.
+  - glass: coupe
+    title: Pina Colada
+    description: Very good
+    image: /images/smoke-signal.jpg
+    ingredients:
+      - item: Pina
+        amount: "10"
+    steps:
+      - meshaj
+    body: tralala
