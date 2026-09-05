@@ -94,9 +94,14 @@ Decap commits through GitHub, so it needs a GitHub OAuth app. Two small steps:
    Then redeploy. The two functions in `netlify/functions/` handle the login
    handshake; nothing else is needed.
 
-3. **Point the CMS at your repo.** In `public/admin/config.yml`, replace the
-   three `REPLACE-ME` placeholders with your GitHub `username/repository` and
-   your Netlify URL, then commit.
+3. **Nothing to configure for the domain.** `public/admin/index.html` derives
+   the login URL from whatever origin the CMS is served from, so renaming the
+   Netlify site or adding a custom domain won't break it. The only hardcoded
+   value is the repo (`andrejhristovski/Bartender`) in `config.yml`.
+
+   The one thing that *must* track the domain is the OAuth app's callback URL
+   on GitHub — if you rename the site, update it to `https://<new
+   domain>/api/callback`.
 
 ### Giving Antonio access
 

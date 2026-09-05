@@ -1,13 +1,13 @@
 # ---------------------------------------------------------------------------
 # Decap CMS configuration.
-# Before the first deploy, replace REPLACE-ME below with your GitHub repo
-# ("username/repository") and your live Netlify URL. See README.md.
+# backend.base_url and site_url are NOT set here on purpose — index.html fills
+# them in from the page's own origin, so renaming the site or adding a custom
+# domain never breaks the login. See README.md.
 # ---------------------------------------------------------------------------
 backend:
   name: github
-  repo: REPLACE-ME/antonio-nikolovski
+  repo: andrejhristovski/Bartender
   branch: main
-  base_url: https://REPLACE-ME.netlify.app
   auth_endpoint: api/auth
 
 # `npm run cms` in a second terminal lets you edit locally without logging in.
@@ -17,7 +17,6 @@ media_folder: public/images
 public_folder: /images
 
 publish_mode: simple
-site_url: https://REPLACE-ME.netlify.app
 logo_url: /favicon.svg
 
 collections:

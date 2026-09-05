@@ -7,7 +7,22 @@
     <title>Antonio Nikolovski — Content</title>
   </head>
   <body>
+    <script>
+      // Start the CMS by hand so we can fill in one value at runtime.
+      window.CMS_MANUAL_INIT = true
+    </script>
     <!-- Decap CMS is loaded from a CDN, so it costs the public site nothing. -->
     <script src="https://unpkg.com/decap-cms@^3.9.0/dist/decap-cms.js"></script>
+    <script>
+      // The OAuth functions live on this same site, so the login URL is just
+      // wherever this page is being served from. Deriving it means renaming the
+      // Netlify site (or adding a custom domain) can never break the login.
+      CMS.init({
+        config: {
+          backend: { base_url: window.location.origin },
+          site_url: window.location.origin,
+        },
+      })
+    </script>
   </body>
 </html>
