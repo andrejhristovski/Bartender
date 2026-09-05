@@ -24,7 +24,10 @@ recipeOrder:
   - paper-lantern
   - paper-lantern
   - velvet-hour
-recipesToShow: 8
+  - nightjar
+  - smoke-signal
+  - ember-and-rye
+recipesToShow: 10
 momentsTitle: Moments
 momentsNote: Rooms, service, residencies
 moments:
