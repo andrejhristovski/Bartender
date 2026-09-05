@@ -58,7 +58,12 @@ export function useReveal(deps = []) {
           io.unobserve(entry.target)
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      // threshold MUST stay 0. A ratio-based threshold is unsatisfiable for any
+      // element taller than viewport / threshold — the cocktails section is
+      // ~8000px on a phone, so at 0.12 its ratio peaks around 0.10 and the
+      // reveal never fires, leaving a screen of blank space. Firing on first
+      // pixel, with the bottom inset below, starts it as soon as it appears.
+      { threshold: 0, rootMargin: '0px 0px -8% 0px' }
     )
 
     els.forEach((el, i) => {
