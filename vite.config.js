@@ -29,8 +29,10 @@ function servePrerendered() {
       server.middlewares.use((req, _res, next) => {
         const url = req.url.split('?')[0]
         if (!path.extname(url)) {
-          const candidate = path.join('dist', url, 'index.html')
-          if (fs.existsSync(candidate)) {
+          // same resolution order Netlify uses: <path>.html, then <path>/index.html
+          if (fs.existsSync(path.join('dist', url + '.html'))) {
+            req.url = url + '.html'
+          } else if (fs.existsSync(path.join('dist', url, 'index.html'))) {
             req.url = path.posix.join(url, 'index.html')
           }
         }

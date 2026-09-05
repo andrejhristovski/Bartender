@@ -58,10 +58,14 @@ function page(url, { title, description, canonical, image, type, jsonLd }) {
   return html
 }
 
+// Flat files, not <slug>/index.html. Netlify serves /recipes/x from
+// recipes/x.html directly, whereas a directory makes it 301 to /recipes/x/ —
+// which would mean every canonical tag and every sitemap URL pointed at a
+// redirect.
 const write = (routePath, html) => {
-  const dir = routePath === '/' ? dist : path.join(dist, routePath)
-  fs.mkdirSync(dir, { recursive: true })
-  fs.writeFileSync(path.join(dir, 'index.html'), html)
+  const file = routePath === '/' ? path.join(dist, 'index.html') : path.join(dist, routePath + '.html')
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, html)
 }
 
 // ---- homepage ------------------------------------------------------------
