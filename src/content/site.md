@@ -17,10 +17,10 @@ listKicker: Signature list
 listTitle: Drinks on rotation
 listNote: Tap any drink for the full build.
 recipeOrder:
-  - ember-and-rye
-  - nightjar
-  - smoke-signal
   - velvet-hour
+  - nightjar
+  - ember-and-rye
+  - smoke-signal
   - paper-lantern
   - salt-flats
 recipesToShow: 4
