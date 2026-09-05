@@ -22,8 +22,9 @@ recipeOrder:
   - ember-and-rye
   - smoke-signal
   - paper-lantern
-  - salt-flats
-recipesToShow: 4
+  - paper-lantern
+  - velvet-hour
+recipesToShow: 8
 momentsTitle: Moments
 momentsNote: Rooms, service, residencies
 moments:
