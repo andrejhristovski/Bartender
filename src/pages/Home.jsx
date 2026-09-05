@@ -96,12 +96,7 @@ export default function Home() {
 
           <div className="drinks__grid">
             {recipes.map((recipe, i) => (
-              <DrinkCard
-                key={recipe.slug}
-                recipe={recipe}
-                number={pad(i + 1)}
-                onOpen={() => navigate(`/recipes/${recipe.slug}`)}
-              />
+              <DrinkCard key={recipe.slug} recipe={recipe} number={pad(i + 1)} />
             ))}
           </div>
         </section>

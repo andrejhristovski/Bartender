@@ -11,7 +11,7 @@ export default function Image({ src, alt = '', eager = false, ...rest }) {
       alt={alt}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
-      fetchPriority={eager ? 'high' : 'auto'}
+      fetchpriority={eager ? 'high' : undefined}
       onLoad={() => setLoaded(true)}
       style={{ opacity: loaded ? 1 : 0, transition: 'opacity 400ms var(--ease)' }}
       {...rest}

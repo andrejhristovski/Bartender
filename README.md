@@ -197,6 +197,56 @@ vite-plugin-markdown.js Parses frontmatter during the build, so no YAML
                         parser ships to the browser.
 ```
 
+## SEO
+
+`npm run build` runs three steps: the normal Vite build, an SSR build, then
+`scripts/prerender.mjs`, which writes a real HTML file for every URL. Without
+that last step the site is a single empty `<div id="root">` — every URL served
+identical markup with no title, no description and no content, which is close to
+invisible to a crawler.
+
+What the prerender produces:
+
+- **A page per URL** — `dist/index.html` plus `dist/recipes/<slug>/index.html`,
+  each with the fully rendered content in the HTML.
+- **Per-page metadata** — unique `<title>`, description, and a canonical URL.
+- **Open Graph + Twitter cards** so links shared on Instagram, WhatsApp or
+  Slack show the drink's photo, name and description instead of nothing.
+- **Recipe structured data** — JSON-LD `Recipe` on every cocktail (ingredients,
+  numbered steps, photo, author), which is what makes Google's recipe rich
+  results possible. The homepage carries `WebSite`, `Person` and an `ItemList`
+  of the drinks.
+- **`sitemap.xml` and `robots.txt`**, both listing the real URLs.
+
+The drink cards are `<a href>` links, not buttons — without an href there is
+nothing for a crawler to follow, and the recipe URLs would only be discoverable
+through the sitemap.
+
+The browser hydrates that prerendered markup rather than replacing it, so the
+page is visible before JavaScript runs and there's no flash on load.
+
+### The site URL
+
+Canonical tags, OG tags and the sitemap need absolute URLs. The prerender uses
+`$URL`, which Netlify sets to the production address at build time, and falls
+back to `https://antonionikolovski.netlify.app`. **If you move to a custom
+domain, no code change is needed** — Netlify updates `$URL` — but do rerun a
+deploy so the tags regenerate.
+
+### After deploying
+
+1. Confirm a recipe URL serves its own title:
+   `curl -s https://<your-domain>/recipes/ember-and-rye | grep '<title>'`
+2. Add the site to [Google Search Console](https://search.google.com/search-console)
+   and submit `https://<your-domain>/sitemap.xml`.
+3. Check a drink page in the
+   [Rich Results Test](https://search.google.com/test/rich-results) to confirm
+   the Recipe markup is picked up.
+
+Note that `npm run preview` is patched to serve the prerendered pages the way
+Netlify does; without that patch its SPA fallback answers every route with the
+homepage and hides the whole thing.
+
 Notes on the build:
 
 - **Dependencies:** React, React Router. Nothing else at runtime. The bundle is
