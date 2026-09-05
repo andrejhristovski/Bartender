@@ -28,6 +28,8 @@ moments:
     image: /images/event-4.jpg
   - label: Last call
     image: /images/event-2.jpg
+  - label: Zabava
+    image: /images/event-1.jpg
 bookTitle: Pour for your room.
 bookText: Private events, bar openings and menu work. Send a date and a rough
   guest count.
