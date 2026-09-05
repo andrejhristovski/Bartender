@@ -1,0 +1,95 @@
+# ---------------------------------------------------------------------------
+# Decap CMS configuration.
+# Before the first deploy, replace REPLACE-ME below with your GitHub repo
+# ("username/repository") and your live Netlify URL. See README.md.
+# ---------------------------------------------------------------------------
+backend:
+  name: github
+  repo: REPLACE-ME/antonio-nikolovski
+  branch: main
+  base_url: https://REPLACE-ME.netlify.app
+  auth_endpoint: api/auth
+
+# `npm run cms` in a second terminal lets you edit locally without logging in.
+local_backend: true
+
+media_folder: public/images
+public_folder: /images
+
+publish_mode: simple
+site_url: https://REPLACE-ME.netlify.app
+logo_url: /favicon.svg
+
+collections:
+  - name: site
+    label: Site text
+    files:
+      - name: general
+        label: Homepage text
+        file: src/content/site.md
+        fields:
+          - { name: name, label: Name, widget: string }
+          - { name: kicker, label: Line above the name, widget: string, hint: 'e.g. Bartender · Skopje & elsewhere' }
+          - { name: tagline, label: Line under the name, widget: string }
+          - { name: heroImage, label: Background photo, widget: image, required: false, hint: Optional. Sits behind the name, dimmed. Leave empty for the lit-glass background. }
+          - { name: portrait, label: Portrait photo, widget: image, required: false, hint: Optional. Leave empty to keep the drawn placeholder. }
+          - { name: aboutTitle, label: About heading, widget: string }
+          - { name: about, label: About text, widget: text }
+          - { name: aboutSecondary, label: About — second line, widget: text, required: false }
+          - { name: listKicker, label: Cocktails — small label, widget: string }
+          - { name: listTitle, label: Cocktails — heading, widget: string }
+          - { name: listNote, label: Cocktails — note on the right, widget: string, required: false }
+          - { name: momentsTitle, label: Moments — heading, widget: string, required: false }
+          - { name: momentsNote, label: Moments — small label, widget: string, required: false }
+          - name: moments
+            label: Moments (photo strip)
+            widget: list
+            required: false
+            fields:
+              - { name: label, label: Caption, widget: string }
+              - { name: image, label: Photo, widget: image, required: false }
+          - { name: bookTitle, label: Book — heading, widget: string }
+          - { name: bookText, label: Book — text, widget: text }
+          - { name: email, label: Email, widget: string, required: false }
+          - { name: instagram, label: Instagram handle, widget: string, required: false, hint: Without the @ }
+          - { name: footerNote, label: Footer line, widget: string, required: false }
+
+  - name: recipes
+    label: Cocktails
+    label_singular: Cocktail
+    folder: src/content/recipes
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: yaml-frontmatter
+    summary: '{{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Name, widget: string }
+      - { name: description, label: Short description, widget: string, hint: One line, shown on the card }
+      - { name: image, label: Photo, widget: image, required: false, hint: Optional. Leave empty to use the drawn glass. }
+      - name: glass
+        label: Glass
+        widget: select
+        default: rocks
+        options:
+          - { label: Rocks, value: rocks }
+          - { label: Coupe, value: coupe }
+          - { label: Martini, value: martini }
+          - { label: Highball, value: highball }
+          - { label: Flute, value: flute }
+      - { name: date, label: Date added, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false }
+      - name: ingredients
+        label: Build
+        widget: list
+        label_singular: Ingredient
+        summary: '{{fields.item}} — {{fields.amount}}'
+        fields:
+          - { name: item, label: Ingredient, widget: string }
+          - { name: amount, label: Amount, widget: string, hint: 'e.g. 60 ml' }
+      - name: steps
+        label: Method
+        widget: list
+        label_singular: Step
+        field: { name: step, label: Step, widget: text }
+      - { name: body, label: Full description, widget: text, hint: The longer paragraph shown when the drink is opened. }

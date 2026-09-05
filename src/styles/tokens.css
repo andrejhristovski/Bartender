@@ -1,0 +1,75 @@
+/* ===========================================================================
+   DESIGN TOKENS — taken verbatim from the "Bartender Portfolio" canvas,
+   which is built on the Organic design system (claude.ai/design).
+   Every color, face and radius the site uses is declared here.
+   =========================================================================== */
+:root {
+  /* Ground & panels */
+  --c-bg: #14100d;
+  --c-bg-soft: #17120f;
+  --c-panel-a: #241b14;
+  --c-panel-b: #17120f;
+  --c-panel-portrait-a: #221a14;
+  --c-panel-portrait-b: #16120f;
+  --c-cta-a: #1e1712;
+  --c-cta-b: #14100d;
+  --c-dialog-a: #1d1611;
+  --c-dialog-b: #14100d;
+
+  /* Ink */
+  --c-ink: #efe6da;
+  --c-ink-bright: #f6efe4;
+  --c-ink-82: rgba(239, 230, 218, 0.82);
+  --c-ink-72: rgba(239, 230, 218, 0.72);
+  --c-ink-66: rgba(239, 230, 218, 0.66);
+  --c-ink-55: rgba(239, 230, 218, 0.55);
+  --c-ink-45: rgba(239, 230, 218, 0.45);
+  --c-ink-38: rgba(239, 230, 218, 0.38);
+  --c-ink-30: rgba(239, 230, 218, 0.3);
+
+  /* Accents (Organic: terracotta + olive) */
+  --c-accent: #c67139;
+  --c-accent-lift: #e0a260;
+  --c-accent-hi: #f2c48c;
+  --c-olive: #7a8a5e;
+  --c-accent-85: rgba(224, 162, 96, 0.85);
+
+  /* Hairlines */
+  --c-line: rgba(224, 162, 96, 0.14);
+  --c-line-soft: rgba(224, 162, 96, 0.12);
+  --c-line-mid: rgba(224, 162, 96, 0.22);
+  --c-line-strong: rgba(224, 162, 96, 0.35);
+
+  /* Type */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
+
+  --fs-hero: clamp(56px, 12vw, 148px);
+  --fs-h2: clamp(38px, 6vw, 68px);
+  --fs-h2-sm: clamp(34px, 5vw, 56px);
+  --fs-h2-xs: clamp(28px, 4vw, 42px);
+  --fs-h3: 26px;
+  --fs-lead: clamp(16px, 2vw, 20px);
+  --fs-body: 17px;
+  --fs-sm: 15px;
+  --fs-xs: 13px;
+  --fs-eyebrow: 11px;
+  --tracking-eyebrow: 0.3em;
+  --tracking-hero-eyebrow: 0.34em;
+
+  /* Rhythm */
+  --gutter: clamp(20px, 5vw, 64px);
+  --measure: 1180px;
+  --section-y: clamp(80px, 12vh, 150px);
+
+  /* Shape */
+  --r-card: 18px;
+  --r-portrait: 20px;
+  --r-dialog: 24px;
+  --r-cta: 26px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-rise: cubic-bezier(0.16, 0.8, 0.2, 1);
+}

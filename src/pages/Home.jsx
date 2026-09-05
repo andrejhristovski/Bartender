@@ -1,0 +1,167 @@
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import Nav from '../components/Nav'
+import Hero from '../components/Hero'
+import Image from '../components/Image'
+import DrinkCard from '../components/DrinkCard'
+import RecipeDialog from '../components/RecipeDialog'
+import { useScrollFx, useReveal } from '../lib/useScrollFx'
+import { site, recipes } from '../lib/content'
+
+const pad = (n) => String(n).padStart(2, '0')
+
+export default function Home() {
+  const { slug } = useParams()
+  const navigate = useNavigate()
+  const [closing, setClosing] = useState(false)
+
+  const heroBg = useRef(null)
+  const heroCopy = useRef(null)
+  const progress = useRef(null)
+
+  const navVisible = useScrollFx({ heroBg, heroCopy, progress })
+  useReveal([recipes.length])
+
+  const index = recipes.findIndex((r) => r.slug === slug)
+  const active = index >= 0 ? recipes[index] : null
+
+  useEffect(() => {
+    document.title = active ? `${active.title} — ${site.name}` : `${site.name} — ${site.kicker}`
+  }, [active])
+
+  // A link straight to /#about lands before React has rendered the section,
+  // so the browser can't do the scroll itself.
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (id) document.getElementById(id)?.scrollIntoView()
+  }, [])
+
+  // Let the close animation play out before we drop the dialog from the tree.
+  const close = () => {
+    if (closing) return
+    setClosing(true)
+    setTimeout(() => {
+      setClosing(false)
+      navigate('/', { replace: true })
+    }, 380)
+  }
+
+  return (
+    <>
+      <div className="grain" aria-hidden="true" />
+      <div className="vignette" aria-hidden="true" />
+
+      <a className="skip-link" href="#cocktails">Skip to the cocktails</a>
+      <Nav name={site.name} visible={navVisible} progressRef={progress} />
+
+      <Hero site={site} bgRef={heroBg} copyRef={heroCopy} />
+
+      <main>
+        <section className="wrap about reveal" id="about">
+          <div className="about__portrait">
+            <div className="about__glow" aria-hidden="true" />
+            {site.portrait ? (
+              <Image src={site.portrait} alt={site.name} />
+            ) : (
+              <>
+                <svg className="about__icon" viewBox="0 0 24 24" fill="none" stroke="rgba(224,162,96,.5)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4.5 21a7.5 7.5 0 0 1 15 0" />
+                </svg>
+                <span className="about__caption">Portrait</span>
+              </>
+            )}
+          </div>
+
+          <div>
+            <p className="eyebrow">About</p>
+            <span className="rule reveal" aria-hidden="true" />
+            <h2 className="about__title">{site.aboutTitle}</h2>
+            <p className="about__text">{site.about}</p>
+            {site.aboutSecondary && <p className="about__text about__text--soft">{site.aboutSecondary}</p>}
+          </div>
+        </section>
+
+        <section className="wrap drinks reveal" id="cocktails">
+          <div className="drinks__head">
+            <div>
+              <p className="eyebrow">{site.listKicker}</p>
+              <span className="rule rule--wide reveal" aria-hidden="true" />
+              <h2 className="drinks__title">{site.listTitle}</h2>
+            </div>
+            <p className="drinks__note">{site.listNote}</p>
+          </div>
+
+          <div className="drinks__grid">
+            {recipes.map((recipe, i) => (
+              <DrinkCard
+                key={recipe.slug}
+                recipe={recipe}
+                number={pad(i + 1)}
+                onOpen={() => navigate(`/recipes/${recipe.slug}`)}
+              />
+            ))}
+          </div>
+        </section>
+
+        {site.moments?.length > 0 && (
+          <section className="moments reveal" id="moments">
+            <div className="moments__head">
+              <h2>{site.momentsTitle}</h2>
+              <p>{site.momentsNote}</p>
+            </div>
+            <div className="moments__strip">
+              {site.moments.map((moment, i) => (
+                <figure className="moment" key={i}>
+                  <div className="moment__glow" aria-hidden="true" />
+                  {moment.image && <Image src={moment.image} alt={moment.label || ''} />}
+                  <figcaption className="moment__label">{moment.label}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="wrap book reveal" id="book">
+          <div className="book__panel">
+            <div className="book__glow" aria-hidden="true" />
+            <div className="book__inner">
+              <p className="eyebrow">Book</p>
+              <h2 className="book__title">{site.bookTitle}</h2>
+              <p className="book__text">{site.bookText}</p>
+              <div className="book__actions">
+                {site.email && (
+                  <a className="btn btn--solid" href={`mailto:${site.email}`}>{site.email}</a>
+                )}
+                {site.instagram && (
+                  <a className="btn btn--outline" href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="2" y="2" width="20" height="20" rx="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <path d="M17.5 6.5h.01" />
+                    </svg>
+                    @{site.instagram}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <span>{site.name}</span>
+        <span>{site.footerNote}</span>
+      </footer>
+
+      {active && (
+        <RecipeDialog
+          recipe={active}
+          number={pad(index + 1)}
+          closing={closing}
+          onClose={close}
+        />
+      )}
+    </>
+  )
+}
