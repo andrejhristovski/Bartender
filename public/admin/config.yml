@@ -30,7 +30,21 @@ collections:
           - { name: name, label: Name, widget: string }
           - { name: kicker, label: Line above the name, widget: string, hint: 'e.g. Bartender · Skopje & elsewhere' }
           - { name: tagline, label: Line under the name, widget: string }
-          - { name: heroImage, label: Background photo, widget: image, required: false, hint: Optional. Sits behind the name, dimmed. Leave empty for the lit-glass background. }
+          - name: heroVideo
+            label: Background video
+            widget: file
+            required: false
+            media_folder: /public/media
+            public_folder: /media
+            hint: Optional. Plays muted on a loop behind the name. Keep it under ~5 MB and a few seconds long — it loops. MP4 works everywhere.
+          - name: heroPoster
+            label: Video still
+            widget: image
+            required: false
+            media_folder: /public/media
+            public_folder: /media
+            hint: Shown while the video loads, and instead of it for visitors who turn motion off.
+          - { name: heroImage, label: Background photo (if no video), widget: image, required: false, hint: Used only when there's no video. Leave everything empty for the lit-glass background. }
           - { name: portrait, label: Portrait photo, widget: image, required: false, hint: Optional. Leave empty to keep the drawn placeholder. }
           - { name: aboutTitle, label: About heading, widget: string }
           - { name: about, label: About text, widget: text }
@@ -38,6 +52,27 @@ collections:
           - { name: listKicker, label: Cocktails — small label, widget: string }
           - { name: listTitle, label: Cocktails — heading, widget: string }
           - { name: listNote, label: Cocktails — note on the right, widget: string, required: false }
+          - name: recipeOrder
+            label: Order of the drinks
+            widget: list
+            required: false
+            hint: Drag to reorder. Any drink you leave out of this list still appears, after the ones listed here.
+            field:
+              name: slug
+              label: Drink
+              widget: relation
+              collection: recipes
+              search_fields: [title]
+              value_field: '{{slug}}'
+              display_fields: [title]
+          - name: recipesToShow
+            label: How many drinks to show
+            widget: number
+            required: false
+            value_type: int
+            min: 0
+            step: 1
+            hint: Leave empty to show all of them.
           - { name: momentsTitle, label: Moments — heading, widget: string, required: false }
           - { name: momentsNote, label: Moments — small label, widget: string, required: false }
           - name: moments

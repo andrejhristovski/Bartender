@@ -1,6 +1,6 @@
 ---
 title: Ember & Rye
-image: ''
+image: /images/ember-and-rye.jpg
 glass: rocks
 description: Burnt orange, rye, a long slow stir.
 date: 2026-09-05

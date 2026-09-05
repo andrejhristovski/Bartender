@@ -63,11 +63,14 @@ a:hover { color: var(--c-accent-hi); }
 }
 .skip-link:focus { top: 16px; color: var(--c-bg); }
 
-/* Scroll reveal — the .is-in class is added by an IntersectionObserver. */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
-.reveal.is-in { opacity: 1; transform: none; }
-.rule.reveal { opacity: 1; transform: scaleX(0); transition: transform 1100ms var(--ease) 260ms; }
-.rule.reveal.is-in { transform: scaleX(1); }
+/* Scroll reveal. Content is visible by default and only hidden once JS has
+   armed it (.is-armed), so a failed script or a browser without
+   IntersectionObserver shows the page rather than a blank screen. */
+.reveal { transition: opacity 900ms var(--ease), transform 900ms var(--ease); }
+.reveal.is-armed { opacity: 0; transform: translateY(30px); }
+.reveal.is-armed.is-in { opacity: 1; transform: none; }
+.rule.reveal.is-armed { opacity: 1; transform: scaleX(0); transition: transform 1100ms var(--ease) 260ms; }
+.rule.reveal.is-armed.is-in { transform: scaleX(1); }
 
 /* ── Nav ──────────────────────────────────────────────────────────────────── */
 .nav {
@@ -95,7 +98,7 @@ a:hover { color: var(--c-accent-hi); }
   display: grid; place-items: center; overflow: hidden;
   padding: 120px 24px 96px;
 }
-.hero__bg { position: absolute; inset: -20%; z-index: 0; }
+.hero__bg { position: absolute; inset: -20%; z-index: 1; }
 .hero__blob { position: absolute; border-radius: var(--r-pill); }
 .hero__blob--1 { left: 8%; top: 10%; width: 62vw; height: 62vw; filter: blur(90px); background: radial-gradient(circle at 40% 40%, rgba(198,113,57,.62), rgba(198,113,57,0) 68%); animation: drift1 19s ease-in-out infinite; }
 .hero__blob--2 { right: 4%; top: 22%; width: 54vw; height: 54vw; filter: blur(100px); background: radial-gradient(circle at 50% 50%, rgba(226,167,86,.42), rgba(226,167,86,0) 66%); animation: drift2 24s ease-in-out infinite; }
@@ -107,8 +110,21 @@ a:hover { color: var(--c-accent-hi); }
 .hero__pours path:nth-child(2) { animation-duration: 38s; }
 .hero__pours path:nth-child(3) { animation-duration: 44s; }
 
-.hero__photo { position: absolute; inset: 0; z-index: 1; }
-.hero__photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
+/* Background photo or video. Graded hard toward the palette — stock footage is
+   rarely shot in a dark warm bar, and this sits directly under the name. The
+   drifting terracotta blobs render above it, which warms the footage further. */
+.hero__media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.hero__media img,
+.hero__media video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(0.4) brightness(0.32) sepia(0.45);
+}
+.hero__media::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(198, 113, 57, 0.3), rgba(198, 113, 57, 0) 70%),
+    linear-gradient(180deg, rgba(20, 16, 13, 0.55) 0%, rgba(20, 16, 13, 0.72) 55%, var(--c-bg) 100%);
+}
 
 .hero__copy { position: relative; z-index: 2; text-align: center; max-width: 900px; }
 .hero__eyebrow {

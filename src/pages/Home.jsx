@@ -6,7 +6,7 @@ import Image from '../components/Image'
 import DrinkCard from '../components/DrinkCard'
 import RecipeDialog from '../components/RecipeDialog'
 import { useScrollFx, useReveal } from '../lib/useScrollFx'
-import { site, recipes } from '../lib/content'
+import { site, recipes, ordered } from '../lib/content'
 
 const pad = (n) => String(n).padStart(2, '0')
 
@@ -22,8 +22,10 @@ export default function Home() {
   const navVisible = useScrollFx({ heroBg, heroCopy, progress })
   useReveal([recipes.length])
 
-  const index = recipes.findIndex((r) => r.slug === slug)
-  const active = index >= 0 ? recipes[index] : null
+  // Look the open drink up in the full ordered list, not the trimmed homepage
+  // one — a link to a drink keeps working even when it isn't on the homepage.
+  const index = ordered.findIndex((r) => r.slug === slug)
+  const active = index >= 0 ? ordered[index] : null
 
   useEffect(() => {
     document.title = active ? `${active.title} — ${site.name}` : `${site.name} — ${site.kicker}`

@@ -47,6 +47,9 @@ export function useReveal(deps = []) {
     const els = document.querySelectorAll('.reveal:not(.is-in)')
     if (!els.length) return
 
+    // No observer support: leave everything visible rather than hiding it.
+    if (!('IntersectionObserver' in window)) return
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -60,6 +63,7 @@ export function useReveal(deps = []) {
 
     els.forEach((el, i) => {
       if (!el.classList.contains('rule')) el.style.transitionDelay = `${(i % 6) * 70}ms`
+      el.classList.add('is-armed') // only now is it safe to hide it
       io.observe(el)
     })
     return () => io.disconnect()

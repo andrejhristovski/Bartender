@@ -61,6 +61,53 @@ Homepage wording — the name, the line under it, the About text, the Moments
 strip and the Book panel — all live in `src/content/site.md` and are editable
 under **Site text** in the CMS.
 
+### Which drinks show, and in what order
+
+Both are set under **Site text**, so no code is involved:
+
+- **Order of the drinks** — a drag-to-reorder list. Drag a drink up to move it
+  to the front of the homepage. Any drink left out of the list still appears,
+  after the ones that were ordered by hand, newest first.
+- **How many drinks to show** — leave it empty to show all of them, or set a
+  number to trim the homepage to that many.
+
+Hiding a drink from the homepage does **not** break its link. `/recipes/<slug>`
+keeps working for every drink in the folder, so an address shared earlier still
+opens the right build sheet.
+
+### The hero background
+
+**Site text → Background video.** An MP4 that plays muted on a loop behind the
+name. Keep it short (a few seconds — it loops) and under about 5 MB; it's the
+first thing that loads.
+
+- **Video still** is shown while the video downloads, and *instead* of it for
+  anyone browsing with reduced motion turned on or with a data saver enabled.
+- **Background photo** is the fallback when there's no video at all.
+- With all three empty, the hero falls back to the design's own lit-glass
+  gradient — which is what the original design specifies, and still looks right.
+
+Video and stills live in `public/media/`. The footage is graded hard in CSS
+(`.hero__media` in `global.css`) — desaturated, darkened and warmed — because
+stock bar footage is rarely shot in a dark warm room and the name has to stay
+readable on top of it.
+
+### Photos
+
+The six drink photos and four event photos are from
+[Unsplash](https://unsplash.com) under the Unsplash License, and the hero clip is
+from [Pexels](https://pexels.com) under the Pexels License — all free for
+commercial use, no attribution required.
+
+The **Moments** strip (the horizontal row of event photos) is also edited under
+**Site text**: each entry is a caption plus a photo, and the whole list is
+drag-to-reorder. They are
+placeholders for Antonio's own photography; replace them through the CMS
+(**Cocktails → pick a drink → Photo**) whenever real shots exist.
+
+A drink with no photo falls back to the drawn glass on a lit gradient from the
+design, so the grid never looks broken mid-way through a shoot.
+
 ---
 
 ## Deploying free on Netlify
