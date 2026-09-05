@@ -1,31 +1,14 @@
 cocktails:
-  - title: Ember & Rye
-    description: Burnt orange, rye, a long slow stir.
-    image: /images/ember-and-rye.jpg
-    glass: rocks
+  - glass: coupe
+    title: Pina Colada
+    description: Very good
+    image: /images/smoke-signal.jpg
     ingredients:
-      - item: Rye whiskey
-        amount: 60 ml
-      - item: Burnt orange oleo
-        amount: 10 ml
-      - item: Demerara syrup
-        amount: 5 ml
-      - item: Angostura bitters
-        amount: 2 dashes
-      - item: Orange peel
-        amount: 1 wide strip
+      - item: Pina
+        amount: "10"
     steps:
-      - Char a strip of orange peel over a flame until it blisters.
-      - Combine spirits, oleo, syrup and bitters over ice; stir 40 turns.
-      - Strain over one large block in a rocks glass.
-      - Express the charred peel over the surface and drop it in.
-    body: >-
-      A rye old fashioned taken darker: the orange is burnt over coals before it
-      goes
-
-      in, so the drink reads smoky before it reads sweet. Stirred long over one block
-
-      and left to open up in the glass.
+      - meshaj
+    body: tralala
   - title: Nightjar
     description: Rye, sweet vermouth and a spoonful of cherry brine.
     image: /images/nightjar.jpg
@@ -53,6 +36,33 @@ cocktails:
       brine does the work sugar usually does, so the drink finishes dry instead of
 
       sticky. Best made with a vermouth that has been open less than a week.
+  - title: Ember & Rye
+    description: Burnt orange, rye, a long slow stir.
+    image: /images/ember-and-rye.jpg
+    glass: rocks
+    ingredients:
+      - item: Rye whiskey
+        amount: 60 ml
+      - item: Burnt orange oleo
+        amount: 10 ml
+      - item: Demerara syrup
+        amount: 5 ml
+      - item: Angostura bitters
+        amount: 2 dashes
+      - item: Orange peel
+        amount: 1 wide strip
+    steps:
+      - Char a strip of orange peel over a flame until it blisters.
+      - Combine spirits, oleo, syrup and bitters over ice; stir 40 turns.
+      - Strain over one large block in a rocks glass.
+      - Express the charred peel over the surface and drop it in.
+    body: >-
+      A rye old fashioned taken darker: the orange is burnt over coals before it
+      goes
+
+      in, so the drink reads smoky before it reads sweet. Stirred long over one block
+
+      and left to open up in the glass.
   - title: Smoke Signal
     description: Mezcal and amaro under a cloche of rosemary smoke.
     image: /images/smoke-signal.jpg
@@ -172,13 +182,3 @@ cocktails:
       is drinking it decide how much salt they want, which matters more than it
 
       sounds — the salt is what makes the grapefruit taste sweet.
-  - glass: coupe
-    title: Pina Colada
-    description: Very good
-    image: /images/smoke-signal.jpg
-    ingredients:
-      - item: Pina
-        amount: "10"
-    steps:
-      - meshaj
-    body: tralala
