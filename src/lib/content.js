@@ -30,7 +30,8 @@ export const ordered = list
 // is trimming it off the homepage.
 export const allRecipes = ordered
 
-const limit = Number(site.recipesToShow) || 0
+// "How many drinks to show" lives alongside the list itself, in cocktails.yml.
+const limit = Number(cocktails?.recipesToShow) || 0
 export const recipes = limit > 0 ? ordered.slice(0, limit) : ordered
 
 export const getRecipe = (slug) => ordered.find((drink) => drink.slug === slug)

@@ -67,7 +67,7 @@ Open **Cocktails → All cocktails**. Every drink is a row in one list:
 - **Add** — the **Add cocktail** button at the top of the list.
 - **Edit** — click a row to expand it.
 - **Remove** — the × on the row.
-- **How many to show** — under **Site text**. Empty shows all of them.
+- **How many to show** — the field above the list. Empty shows all of them.
 
 All the drinks live in one file, `src/content/cocktails.yml`, because that's
 what makes drag-to-reorder possible — Decap can only reorder items inside a

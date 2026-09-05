@@ -16,7 +16,6 @@ aboutSecondary: Available for menu consultancy, openings and private events.
 listKicker: Signature list
 listTitle: Drinks on rotation
 listNote: Tap any drink for the full build.
-recipesToShow: 8
 momentsTitle: Moments
 momentsNote: Rooms, service, residencies
 moments:

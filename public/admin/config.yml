@@ -52,14 +52,6 @@ collections:
           - { name: listKicker, label: Cocktails — small label, widget: string }
           - { name: listTitle, label: Cocktails — heading, widget: string }
           - { name: listNote, label: Cocktails — note on the right, widget: string, required: false }
-          - name: recipesToShow
-            label: How many drinks to show
-            widget: number
-            required: false
-            value_type: int
-            min: 0
-            step: 1
-            hint: Leave empty to show all of them.
           - { name: momentsTitle, label: Moments — heading, widget: string, required: false }
           - { name: momentsNote, label: Moments — small label, widget: string, required: false }
           - name: moments
@@ -85,6 +77,14 @@ collections:
           Every drink on the site. Drag a row by the handle on its left to change
           the order they appear in on the homepage — the top one shows first.
         fields:
+          - name: recipesToShow
+            label: How many drinks to show on the homepage
+            widget: number
+            required: false
+            value_type: int
+            min: 0
+            step: 1
+            hint: Leave empty to show all of them. Set 4 and only the top four in the list below appear — the rest stay on the site, they just aren't on the homepage.
           - name: cocktails
             label: Drinks
             label_singular: Cocktail
