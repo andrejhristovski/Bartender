@@ -16,17 +16,6 @@ aboutSecondary: Available for menu consultancy, openings and private events.
 listKicker: Signature list
 listTitle: Drinks on rotation
 listNote: Tap any drink for the full build.
-recipeOrder:
-  - velvet-hour
-  - nightjar
-  - ember-and-rye
-  - smoke-signal
-  - paper-lantern
-  - paper-lantern
-  - velvet-hour
-  - nightjar
-  - smoke-signal
-  - ember-and-rye
 recipesToShow: 10
 momentsTitle: Moments
 momentsNote: Rooms, service, residencies

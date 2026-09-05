@@ -34,24 +34,21 @@ npm run cms          # a local git proxy; no login needed
 New Cocktail**, fill in the fields and hit **Publish**. That commits a new
 Markdown file to `main` and Netlify rebuilds the site within a minute or two.
 
-**By hand.** Drop a new `.md` file into `src/content/recipes/`. The filename
-becomes the URL (`ember-and-rye.md` → `/recipes/ember-and-rye`). Copy the
-example:
+**By hand.** Add an entry to `src/content/cocktails.yml`. Position in the file
+is position on the site:
 
-```markdown
----
-title: Ember & Rye
-description: Burnt orange, rye, a long slow stir.   # one line, shown on the card
-image: ''                                            # optional; empty = drawn glass
-glass: rocks                                         # rocks | coupe | martini | highball | flute
-date: 2026-09-05                                     # newest first on the homepage
-ingredients:
-  - item: Rye whiskey
-    amount: 60 ml
-steps:
-  - Char a strip of orange peel over a flame until it blisters.
----
-The longer description, shown when the drink is opened.
+```yaml
+cocktails:
+  - title: Ember & Rye
+    description: Burnt orange, rye, a long slow stir.  # one line, shown on the card
+    image: /images/ember-and-rye.jpg                   # optional; empty = drawn glass
+    glass: rocks                                       # rocks | coupe | martini | highball | flute
+    ingredients:
+      - item: Rye whiskey
+        amount: 60 ml
+    steps:
+      - Char a strip of orange peel over a flame until it blisters.
+    body: The longer description, shown when the drink is opened.
 ```
 
 Photos are optional throughout. Where one is missing the site falls back to the
@@ -63,13 +60,22 @@ under **Site text** in the CMS.
 
 ### Which drinks show, and in what order
 
-Both are set under **Site text**, so no code is involved:
+Open **Cocktails → All cocktails**. Every drink is a row in one list:
 
-- **Order of the drinks** — a drag-to-reorder list. Drag a drink up to move it
-  to the front of the homepage. Any drink left out of the list still appears,
-  after the ones that were ordered by hand, newest first.
-- **How many drinks to show** — leave it empty to show all of them, or set a
-  number to trim the homepage to that many.
+- **Reorder** — grab a row by the handle and drag it. Top of the list is first
+  on the homepage.
+- **Add** — the **Add cocktail** button at the top of the list.
+- **Edit** — click a row to expand it.
+- **Remove** — the × on the row.
+- **How many to show** — under **Site text**. Empty shows all of them.
+
+All the drinks live in one file, `src/content/cocktails.yml`, because that's
+what makes drag-to-reorder possible — Decap can only reorder items inside a
+list, never files in a folder.
+
+A drink's URL comes from its name: "Ember & Rye" becomes `/recipes/ember-and-rye`.
+**Renaming a drink therefore changes its link**, and any address shared earlier
+stops working. Rename freely before you share a link, carefully afterwards.
 
 Hiding a drink from the homepage does **not** break its link. `/recipes/<slug>`
 keeps working for every drink in the folder, so an address shared earlier still

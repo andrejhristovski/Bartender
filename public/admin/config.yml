@@ -52,19 +52,6 @@ collections:
           - { name: listKicker, label: Cocktails — small label, widget: string }
           - { name: listTitle, label: Cocktails — heading, widget: string }
           - { name: listNote, label: Cocktails — note on the right, widget: string, required: false }
-          - name: recipeOrder
-            label: Order of the drinks
-            widget: list
-            required: false
-            hint: Drag to reorder. Any drink you leave out of this list still appears, after the ones listed here.
-            field:
-              name: slug
-              label: Drink
-              widget: relation
-              collection: recipes
-              search_fields: [title]
-              value_field: '{{slug}}'
-              display_fields: [title]
           - name: recipesToShow
             label: How many drinks to show
             widget: number
@@ -88,42 +75,47 @@ collections:
           - { name: instagram, label: Instagram handle, widget: string, required: false, hint: Without the @ }
           - { name: footerNote, label: Footer line, widget: string, required: false }
 
-  - name: recipes
+  - name: cocktails
     label: Cocktails
-    label_singular: Cocktail
-    folder: src/content/recipes
-    create: true
-    slug: '{{slug}}'
-    extension: md
-    format: yaml-frontmatter
-    summary: '{{title}}'
-    sortable_fields: [date, title]
-    fields:
-      - { name: title, label: Name, widget: string }
-      - { name: description, label: Short description, widget: string, hint: One line, shown on the card }
-      - { name: image, label: Photo, widget: image, required: false, hint: Optional. Leave empty to use the drawn glass. }
-      - name: glass
-        label: Glass
-        widget: select
-        default: rocks
-        options:
-          - { label: Rocks, value: rocks }
-          - { label: Coupe, value: coupe }
-          - { label: Martini, value: martini }
-          - { label: Highball, value: highball }
-          - { label: Flute, value: flute }
-      - { name: date, label: Date added, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false }
-      - name: ingredients
-        label: Build
-        widget: list
-        label_singular: Ingredient
-        summary: '{{fields.item}} — {{fields.amount}}'
+    files:
+      - name: list
+        label: All cocktails
+        file: src/content/cocktails.yml
+        description: >-
+          Every drink on the site. Drag a row by the handle on its left to change
+          the order they appear in on the homepage — the top one shows first.
         fields:
-          - { name: item, label: Ingredient, widget: string }
-          - { name: amount, label: Amount, widget: string, hint: 'e.g. 60 ml' }
-      - name: steps
-        label: Method
-        widget: list
-        label_singular: Step
-        field: { name: step, label: Step, widget: text }
-      - { name: body, label: Full description, widget: text, hint: The longer paragraph shown when the drink is opened. }
+          - name: cocktails
+            label: Drinks
+            label_singular: Cocktail
+            widget: list
+            collapsed: true
+            summary: '{{fields.title}}'
+            fields:
+              - { name: title, label: Name, widget: string }
+              - { name: description, label: Short description, widget: string, hint: One line — this is what shows on the card }
+              - { name: image, label: Photo, widget: image, required: false, hint: Optional. Leave it empty and the drawn glass is used instead. }
+              - name: glass
+                label: Glass
+                widget: select
+                default: rocks
+                options:
+                  - { label: Rocks, value: rocks }
+                  - { label: Coupe, value: coupe }
+                  - { label: Martini, value: martini }
+                  - { label: Highball, value: highball }
+                  - { label: Flute, value: flute }
+              - name: ingredients
+                label: Build
+                label_singular: Ingredient
+                widget: list
+                summary: '{{fields.item}} — {{fields.amount}}'
+                fields:
+                  - { name: item, label: Ingredient, widget: string }
+                  - { name: amount, label: Amount, widget: string, hint: 'e.g. 60 ml' }
+              - name: steps
+                label: Method
+                label_singular: Step
+                widget: list
+                field: { name: step, label: Step, widget: text }
+              - { name: body, label: Full description, widget: text, hint: The longer paragraph shown when someone opens the drink. }
