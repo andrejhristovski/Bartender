@@ -74,7 +74,8 @@ export default function ContactForm() {
           name="message"
           required
           rows={4}
-          placeholder="A date, a rough guest count, and where."
+          resize="auto"
+          placeholder="Message"
         />
       </label>
 
