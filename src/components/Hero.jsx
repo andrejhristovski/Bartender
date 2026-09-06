@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from './Image'
+import { has } from '../lib/has'
 import HeroPour from './HeroPour'
 
 export default function Hero({ site, bgRef, copyRef, pourRef }) {
@@ -62,9 +63,9 @@ export default function Hero({ site, bgRef, copyRef, pourRef }) {
       </svg>
 
       <div className="hero__copy" ref={copyRef}>
-        <p className="hero__eyebrow">{site.kicker}</p>
-        <h1 className="hero__title">{site.name}</h1>
-        {site.tagline && <p className="hero__line">{site.tagline}</p>}
+        {has(site.kicker) && <p className="hero__eyebrow">{site.kicker}</p>}
+        {has(site.name) && <h1 className="hero__title">{site.name}</h1>}
+        {has(site.tagline) && <p className="hero__line">{site.tagline}</p>}
       </div>
 
       <HeroPour svgRef={pourRef} />

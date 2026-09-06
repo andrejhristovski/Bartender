@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import Image from './Image'
+import { has } from '../lib/has'
 import { GlassIcon } from '../lib/glasses.jsx'
 
 export default function RecipeDialog({ recipe, number, closing, onClose }) {
@@ -17,6 +18,11 @@ export default function RecipeDialog({ recipe, number, closing, onClose }) {
       document.body.style.overflow = previous
     }
   }, [onClose])
+
+  // Rows with neither an ingredient nor an amount would render an empty line;
+  // blank steps likewise. Drop them before deciding whether the block shows.
+  const ingredients = (recipe.ingredients || []).filter((i) => has(i?.item) || has(i?.amount))
+  const steps = (recipe.steps || []).filter(has)
 
   return (
     <div className={`backdrop${closing ? ' is-closing' : ''}`} onClick={onClose}>
@@ -47,29 +53,29 @@ export default function RecipeDialog({ recipe, number, closing, onClose }) {
         </div>
 
         <div className="dialog__body">
-          <p className="eyebrow">{number}</p>
-          <h2 className="dialog__name">{recipe.title}</h2>
-          {recipe.body && <p className="dialog__long">{recipe.body}</p>}
+          {has(number) && <p className="eyebrow">{number}</p>}
+          {has(recipe.title) && <h2 className="dialog__name">{recipe.title}</h2>}
+          {has(recipe.body) && <p className="dialog__long">{recipe.body}</p>}
 
-          {recipe.ingredients?.length > 0 && (
+          {ingredients.length > 0 && (
             <>
               <p className="dialog__label">Build</p>
               <div className="build">
-                {recipe.ingredients.map((ing, i) => (
+                {ingredients.map((ing, i) => (
                   <div className="build__row" key={i} style={{ animationDelay: `${260 + i * 70}ms` }}>
-                    <span>{ing.item}</span>
-                    <span>{ing.amount}</span>
+                    {has(ing.item) && <span>{ing.item}</span>}
+                    {has(ing.amount) && <span>{ing.amount}</span>}
                   </div>
                 ))}
               </div>
             </>
           )}
 
-          {recipe.steps?.length > 0 && (
+          {steps.length > 0 && (
             <>
               <p className="dialog__label">Method</p>
               <div className="method">
-                {recipe.steps.map((step, i) => (
+                {steps.map((step, i) => (
                   <div className="method__row" key={i} style={{ animationDelay: `${520 + i * 80}ms` }}>
                     <span className="method__n">{i + 1}</span>
                     <span>{step}</span>

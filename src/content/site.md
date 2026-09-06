@@ -2,8 +2,8 @@
 name: Antonio Nikolovski
 kicker: Bartender · Skopje & elsewhere
 tagline: Drinks built slowly, poured low and served in the dark.
-heroVideo: /media/hero.mp4
-heroPoster: /media/hero-poster.jpg
+heroVideo: /media/craft.mp4
+heroPoster: /media/craft-poster.jpg
 heroImage: ""
 portrait: ""
 aboutTitle: Years behind the wood.
@@ -17,7 +17,7 @@ craftKicker: In the hands
 craftTitle: Watch the build
 craftNote: A silent loop from behind the bar.
 craftVideo: /media/craft.mp4
-craftPoster: ""
+craftPoster: /media/craft-poster.jpg
 listKicker: Signature list
 listTitle: Drinks on rotation
 listNote: Tap any drink for the full build.
@@ -32,8 +32,6 @@ moments:
     image: /images/event-4.jpg
   - label: Last call
     image: /images/event-2.jpg
-  - label: Zabava
-    image: /images/event-1.jpg
 bookTitle: Pour for your room.
 bookText: Private events, bar openings and menu work. Send a date and a rough
   guest count.

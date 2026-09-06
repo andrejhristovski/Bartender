@@ -1,15 +1,5 @@
 recipesToShow: 8
 cocktails:
-  - glass: coupe
-    title: Pina Colada
-    description: Very good
-    image: /images/smoke-signal.jpg
-    ingredients:
-      - item: Pina
-        amount: "10"
-    steps:
-      - meshaj
-    body: tralala
   - title: Nightjar
     description: Rye, sweet vermouth and a spoonful of cherry brine.
     image: /images/nightjar.jpg

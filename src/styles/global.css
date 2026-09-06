@@ -29,6 +29,37 @@ a:hover { color: var(--c-accent-hi); }
 :focus { outline: none; }
 :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
 
+/* ── Scrollbars ───────────────────────────────────────────────────────────── */
+/* Thin and unobtrusive. scrollbar-width/color are inherited, so setting them on
+   the root covers every scroller; the WebKit pseudo-elements are global by
+   nature. The transparent border plus background-clip makes the thumb read as
+   ~4px inside an 8px track, which is what gives it the modern hairline look. */
+/* scrollbar-color inherits; scrollbar-width does NOT, so it has to be set on
+   every scroller — hence the universal selector. The class rules further down
+   still win for the strips that hide theirs. */
+html { scrollbar-color: rgba(224, 162, 96, 0.28) transparent; }
+* { scrollbar-width: thin; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(224, 162, 96, 0.24);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(224, 162, 96, 0.45); background-clip: padding-box; }
+
+/* Things you swipe or drag rather than scroll: no bar at all. A visible bar
+   under a photo strip reads as chrome and breaks the full-bleed edge. */
+.moments__strip,
+.lightbox-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.moments__strip::-webkit-scrollbar,
+.lightbox-track::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
 /* ── Atmosphere: film grain + vignette, fixed over everything ─────────────── */
 .grain, .vignette { position: fixed; inset: 0; pointer-events: none; }
 .grain {
@@ -385,9 +416,36 @@ button.moment:hover img { transform: scale(1.05); }
 button.moment:hover { border-color: rgba(224, 162, 96, 0.32); }
 
 /* ── Photo preview ────────────────────────────────────────────────────────── */
+/* The boxes ARE the carousel: a scroll-snap track fills the backdrop and each
+   framed photo is one slide, so a swipe moves the boxes themselves. Native
+   scrolling, so it keeps momentum and rubber-banding on touch. */
+.backdrop--photos { display: block; padding: 0; }
+
+.lightbox-track {
+  position: absolute; inset: 0;
+  display: flex;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.lightbox-track::-webkit-scrollbar { display: none; }
+.lightbox-track:focus { outline: none; }
+
+.lightbox-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center; scroll-snap-stop: always;
+  display: grid; place-items: center;
+  padding: clamp(16px, 4vw, 48px);
+  box-sizing: border-box;
+}
+
+/* Each box hugs its own photo, so a portrait and a landscape shot each get a
+   frame that fits them rather than a shared letterbox. */
 .lightbox {
   position: relative; margin: 0;
-  max-width: min(1100px, 100%); max-height: 88vh;
+  max-width: 100%; max-height: 100%;
   border-radius: var(--r-dialog); overflow: hidden;
   border: 1px solid var(--c-line-mid);
   background: var(--c-panel-b);
@@ -397,14 +455,26 @@ button.moment:hover { border-color: rgba(224, 162, 96, 0.32); }
 .backdrop.is-closing .lightbox { animation-name: dialogOut; }
 .lightbox img {
   display: block; width: auto; height: auto;
-  max-width: 100%; max-height: 80vh; object-fit: contain;
+  max-width: 100%; max-height: min(78vh, 760px); object-fit: contain;
+  user-select: none; -webkit-user-drag: none;
 }
+
+/* Above the track so it doesn't scroll away with the boxes. */
+.lightbox__close { position: absolute; top: 16px; right: 16px; z-index: 3; }
+
 .lightbox__caption {
   position: absolute; inset: auto 0 0 0;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
   padding: 56px 24px 18px;
   background: linear-gradient(to top, rgba(14, 11, 9, 0.92), rgba(14, 11, 9, 0));
   font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--c-ink-82);
+  pointer-events: none;
+}
+.lightbox__count { color: var(--c-ink-45); white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .lightbox__caption { padding: 48px 18px 16px; font-size: 11px; }
 }
 
 /* ── Book / contact ───────────────────────────────────────────────────────── */

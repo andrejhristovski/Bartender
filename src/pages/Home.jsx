@@ -10,6 +10,7 @@ import RecipeDialog from '../components/RecipeDialog'
 import Lightbox from '../components/Lightbox'
 import { useScrollFx, useReveal } from '../lib/useScrollFx'
 import { site, recipes, ordered } from '../lib/content'
+import { has, hasAny } from '../lib/has'
 import { instagramUrl } from '../lib/instagram'
 
 const pad = (n) => String(n).padStart(2, '0')
@@ -18,7 +19,7 @@ export default function Home() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const [closing, setClosing] = useState(false)
-  const [moment, setMoment] = useState(null)
+  const [momentIndex, setMomentIndex] = useState(null)
   const [momentClosing, setMomentClosing] = useState(false)
 
   const heroBg = useRef(null)
@@ -45,12 +46,24 @@ export default function Home() {
     if (id) document.getElementById(id)?.scrollIntoView()
   }, [])
 
+  // A section only renders when the CMS actually has content for it.
+  const show = {
+    about: hasAny(site.aboutTitle, site.about, site.aboutSecondary, site.portrait),
+    craft: has(site.craftVideo),
+    cocktails: recipes.length > 0,
+    moments: has(site.moments),
+    book: hasAny(site.bookTitle, site.bookText, site.instagram, site.cv),
+  }
+
+  // Only moments with a photo are swipeable, so the indexes line up.
+  const photos = (site.moments || []).filter((m) => m.image)
+
   const closeMoment = () => {
     if (momentClosing) return
     setMomentClosing(true)
     setTimeout(() => {
       setMomentClosing(false)
-      setMoment(null)
+      setMomentIndex(null)
     }, 380)
   }
 
@@ -69,12 +82,13 @@ export default function Home() {
       <div className="grain" aria-hidden="true" />
       <div className="vignette" aria-hidden="true" />
 
-      <a className="skip-link" href="#cocktails">Skip to the cocktails</a>
-      <Nav name={site.name} visible={navVisible} progressRef={progress} />
+      {show.cocktails && <a className="skip-link" href="#cocktails">Skip to the cocktails</a>}
+      <Nav name={site.name} visible={navVisible} progressRef={progress} show={show} />
 
       <Hero site={site} bgRef={heroBg} copyRef={heroCopy} pourRef={heroPour} />
 
       <main>
+        {show.about && (
         <section className="wrap about reveal" id="about">
           <div className="about__portrait">
             <div className="about__glow" aria-hidden="true" />
@@ -94,23 +108,29 @@ export default function Home() {
           <div>
             <p className="eyebrow">About</p>
             <span className="rule reveal" aria-hidden="true" />
-            <h2 className="about__title">{site.aboutTitle}</h2>
-            <p className="about__text">{site.about}</p>
-            {site.aboutSecondary && <p className="about__text about__text--soft">{site.aboutSecondary}</p>}
+            {has(site.aboutTitle) && <h2 className="about__title">{site.aboutTitle}</h2>}
+            {has(site.about) && <p className="about__text">{site.about}</p>}
+            {has(site.aboutSecondary) && <p className="about__text about__text--soft">{site.aboutSecondary}</p>}
           </div>
         </section>
+        )}
 
         {site.craftVideo && <CraftVideo site={site} />}
 
+        {show.cocktails && (
         <section className="wrap drinks reveal" id="cocktails">
-          <div className="drinks__head">
-            <div>
-              <p className="eyebrow">{site.listKicker}</p>
-              <span className="rule rule--wide reveal" aria-hidden="true" />
-              <h2 className="drinks__title">{site.listTitle}</h2>
+          {hasAny(site.listKicker, site.listTitle, site.listNote) && (
+            <div className="drinks__head">
+              <div>
+                {has(site.listKicker) && <p className="eyebrow">{site.listKicker}</p>}
+                {hasAny(site.listKicker, site.listTitle) && (
+                  <span className="rule rule--wide reveal" aria-hidden="true" />
+                )}
+                {has(site.listTitle) && <h2 className="drinks__title">{site.listTitle}</h2>}
+              </div>
+              {has(site.listNote) && <p className="drinks__note">{site.listNote}</p>}
             </div>
-            <p className="drinks__note">{site.listNote}</p>
-          </div>
+          )}
 
           <div className="drinks__grid">
             {recipes.map((recipe, i) => (
@@ -118,13 +138,16 @@ export default function Home() {
             ))}
           </div>
         </section>
+        )}
 
-        {site.moments?.length > 0 && (
+        {show.moments && (
           <section className="moments reveal" id="moments">
-            <div className="moments__head">
-              <h2>{site.momentsTitle}</h2>
-              <p>{site.momentsNote}</p>
-            </div>
+            {hasAny(site.momentsTitle, site.momentsNote) && (
+              <div className="moments__head">
+                {has(site.momentsTitle) && <h2>{site.momentsTitle}</h2>}
+                {has(site.momentsNote) && <p>{site.momentsNote}</p>}
+              </div>
+            )}
             <div className="moments__strip">
               {site.moments.map((item, i) => (
                 item.image ? (
@@ -132,17 +155,17 @@ export default function Home() {
                     type="button"
                     className="moment"
                     key={i}
-                    onClick={() => setMoment(item)}
+                    onClick={() => setMomentIndex(photos.indexOf(item))}
                     aria-label={`Open photo: ${item.label || 'untitled'}`}
                   >
                     <div className="moment__glow" aria-hidden="true" />
                     <Image src={item.image} alt={item.label || ''} />
-                    <span className="moment__label">{item.label}</span>
+                    {has(item.label) && <span className="moment__label">{item.label}</span>}
                   </button>
                 ) : (
                   <figure className="moment" key={i}>
                     <div className="moment__glow" aria-hidden="true" />
-                    <figcaption className="moment__label">{item.label}</figcaption>
+                    {has(item.label) && <figcaption className="moment__label">{item.label}</figcaption>}
                   </figure>
                 )
               ))}
@@ -155,8 +178,8 @@ export default function Home() {
             <div className="book__glow" aria-hidden="true" />
             <div className="book__inner">
               <p className="eyebrow">Book</p>
-              <h2 className="book__title">{site.bookTitle}</h2>
-              <p className="book__text">{site.bookText}</p>
+              {has(site.bookTitle) && <h2 className="book__title">{site.bookTitle}</h2>}
+              {has(site.bookText) && <p className="book__text">{site.bookText}</p>}
               <div className="book__actions">
                 {instagramUrl(site.instagram) && (
                   <a className="btn btn--solid" href={instagramUrl(site.instagram)} target="_blank" rel="noreferrer">
@@ -185,13 +208,20 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="footer">
-        <span>{site.name}</span>
-        <span>{site.footerNote}</span>
-      </footer>
+      {hasAny(site.name, site.footerNote) && (
+        <footer className="footer">
+          {has(site.name) && <span>{site.name}</span>}
+          {has(site.footerNote) && <span>{site.footerNote}</span>}
+        </footer>
+      )}
 
-      {moment && (
-        <Lightbox moment={moment} closing={momentClosing} onClose={closeMoment} />
+      {momentIndex !== null && (
+        <Lightbox
+          moments={photos}
+          index={momentIndex}
+          closing={momentClosing}
+          onClose={closeMoment}
+        />
       )}
 
       {active && (

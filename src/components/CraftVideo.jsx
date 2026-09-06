@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { has, hasAny } from '../lib/has'
 
 // "Watch the build" — a silent 16:9 loop. The placeholder underneath stays
 // visible until the video actually has frames, so a slow connection shows the
@@ -20,22 +21,39 @@ export default function CraftVideo({ site }) {
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
-    const onData = () => video.videoWidth > 0 && setReady(true)
-    video.addEventListener('loadeddata', onData)
+
+    // readyState >= 2 is HAVE_CURRENT_DATA: there is a frame to show.
+    const markReady = () => {
+      if (video.videoWidth > 0 || video.readyState >= 2) setReady(true)
+    }
+
+    // The <video> is in the prerendered HTML, so it can already have data by the
+    // time this effect runs — in which case 'loadeddata' fired with nothing
+    // listening and the placeholder would sit over the video forever. Check the
+    // current state first, then listen for the rest.
+    markReady()
+    const events = ['loadeddata', 'loadedmetadata', 'canplay', 'playing']
+    events.forEach((e) => video.addEventListener(e, markReady))
+
     if (motionOK) video.play?.().catch(() => {})
-    return () => video.removeEventListener('loadeddata', onData)
+
+    return () => events.forEach((e) => video.removeEventListener(e, markReady))
   }, [motionOK])
 
   return (
     <section className="wrap craft reveal" id="craft">
-      <div className="craft__head">
-        <div>
-          <p className="eyebrow">{site.craftKicker}</p>
-          <span className="rule rule--craft reveal" aria-hidden="true" />
-          <h2 className="craft__title">{site.craftTitle}</h2>
+      {hasAny(site.craftKicker, site.craftTitle, site.craftNote) && (
+        <div className="craft__head">
+          <div>
+            {has(site.craftKicker) && <p className="eyebrow">{site.craftKicker}</p>}
+            {hasAny(site.craftKicker, site.craftTitle) && (
+              <span className="rule rule--craft reveal" aria-hidden="true" />
+            )}
+            {has(site.craftTitle) && <h2 className="craft__title">{site.craftTitle}</h2>}
+          </div>
+          {has(site.craftNote) && <p className="craft__note">{site.craftNote}</p>}
         </div>
-        {site.craftNote && <p className="craft__note">{site.craftNote}</p>}
-      </div>
+      )}
 
       <div className="craft__frame">
         <video
@@ -59,7 +77,7 @@ export default function CraftVideo({ site }) {
               <rect x="2" y="5" width="15" height="14" rx="3" />
               <path d="m17 11 5-3v8l-5-3z" />
             </svg>
-            <span className="craft__ph-label">{site.craftTitle}</span>
+            {has(site.craftTitle) && <span className="craft__ph-label">{site.craftTitle}</span>}
           </div>
         </div>
 
