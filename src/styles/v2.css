@@ -79,3 +79,15 @@
   .shot { aspect-ratio: 3 / 4.4; }
   .shot__name { font-size: 30px; }
 }
+
+/* The easter-egg confirmation: three quick clicks saved a story image. */
+.shot__toast {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  margin: 0 0 clamp(14px, 3vw, 20px);
+  padding: 9px 18px; border-radius: var(--r-pill);
+  border: 1px solid var(--c-line-mid); background: rgba(20, 16, 13, 0.86);
+  backdrop-filter: blur(8px);
+  font-size: var(--fs-xs); color: var(--c-ink-82); white-space: nowrap;
+  animation: toastIn 320ms var(--ease) both;
+}
+@keyframes toastIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
