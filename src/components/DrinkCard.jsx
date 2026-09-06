@@ -4,9 +4,9 @@ import { GlassIcon } from '../lib/glasses.jsx'
 
 // A real anchor, not a button: crawlers need an href to discover recipe URLs,
 // and it gives middle-click / open-in-new-tab for free.
-export default function DrinkCard({ recipe, number }) {
+export default function DrinkCard({ recipe, number, base = '' }) {
   return (
-    <Link className="drink" to={`/recipes/${recipe.slug}`}>
+    <Link className="drink" to={`${base}/recipes/${recipe.slug}`}>
       <div className="drink__frame">
         <div className="drink__wash" aria-hidden="true" />
         {recipe.image ? (

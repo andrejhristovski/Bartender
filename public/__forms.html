@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Netlify form detection</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <!-- Not a page anyone visits. Netlify's build bot scans the deployed HTML
+         for forms; scripts/prerender.mjs already bakes the real contact form
+         into every page, and this file is a belt-and-braces copy so detection
+         keeps working even if the site ever stops prerendering. The field
+         NAMES are what matter — they must match src/components/ContactForm.jsx. -->
+    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+  </body>
+</html>

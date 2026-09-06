@@ -1,0 +1,81 @@
+/* ===========================================================================
+   /v2 EXPERIMENT — photo-first recipe modal.
+   Loaded only by RecipeDialogV2; it reuses .backdrop and .dialog__close from
+   global.css and adds nothing the v1 page can see.
+   =========================================================================== */
+
+.shot {
+  position: relative;
+  width: min(520px, 100%);
+  aspect-ratio: 4 / 5;
+  max-height: 88vh;
+  overflow: hidden;
+  border-radius: var(--r-dialog);
+  border: 1px solid var(--c-line-mid);
+  background: linear-gradient(170deg, #2a2018, var(--c-panel-b) 70%);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
+  display: grid;
+  place-items: center;
+  animation: dialogIn 400ms var(--ease) forwards;
+}
+.backdrop.is-closing .shot { animation-name: dialogOut; }
+
+.shot__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shot__icon { width: 96px; height: 96px; position: relative; }
+
+/* Dark at both ends so the title reads at the top and the copy at the bottom,
+   with the middle of the glass left alone. */
+.shot__scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(6,5,4,.72) 0%, rgba(6,5,4,.18) 26%, rgba(6,5,4,0) 42%),
+    linear-gradient(to top, rgba(6,5,4,.94) 0%, rgba(6,5,4,.88) 22%, rgba(6,5,4,.6) 40%, rgba(6,5,4,.18) 56%, rgba(6,5,4,0) 70%);
+}
+
+.shot__close { top: 14px; right: 14px; width: 38px; height: 38px; }
+
+.shot__overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: clamp(20px, 4vw, 30px);
+  gap: 18px;
+}
+
+.shot__head { padding-right: 46px; }
+.shot__no { color: var(--c-accent-85); }
+.shot__name {
+  margin-top: 8px;
+  font-size: clamp(30px, 6vw, 42px); line-height: 1.02;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+}
+
+.shot__label {
+  margin-bottom: 10px;
+  font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase; color: var(--c-ink-45);
+}
+
+.shot__foot { display: flex; flex-direction: column; }
+.shot__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.shot__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding: 7px 0; border-bottom: 1px solid rgba(224, 162, 96, 0.14);
+  font-size: 14px; line-height: 1.3;
+  animation: rowIn 600ms var(--ease) both;
+}
+.shot__row:last-child { border-bottom: none; }
+.shot__item { color: var(--c-ink-82); }
+.shot__amount { color: var(--c-accent-lift); white-space: nowrap; font-size: var(--fs-xs); letter-spacing: 0.04em; }
+
+.shot__note {
+  padding-top: 14px; border-top: 1px solid rgba(224, 162, 96, 0.14);
+  font-size: var(--fs-xs); line-height: 1.6; color: var(--c-ink-66);
+  text-wrap: pretty;
+}
+
+/* Tall, narrow phones: let the card take the height it needs instead of the
+   4:5 box squeezing the copy. */
+@media (max-width: 520px) {
+  .shot { aspect-ratio: 3 / 4.4; }
+  .shot__name { font-size: 30px; }
+}

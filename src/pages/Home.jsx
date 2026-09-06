@@ -7,6 +7,7 @@ import CraftVideo from '../components/CraftVideo'
 import ContactForm from '../components/ContactForm'
 import DrinkCard from '../components/DrinkCard'
 import RecipeDialog from '../components/RecipeDialog'
+import RecipeDialogV2 from '../components/RecipeDialogV2'
 import Lightbox from '../components/Lightbox'
 import { useScrollFx, useReveal } from '../lib/useScrollFx'
 import { site, recipes, ordered } from '../lib/content'
@@ -15,7 +16,12 @@ import { instagramUrl } from '../lib/instagram'
 
 const pad = (n) => String(n).padStart(2, '0')
 
-export default function Home() {
+// The photo-first modal (RecipeDialogV2) is what the site ships. The original
+// side-by-side dialog is still here as variant 'v1' — uncomment its route in
+// routes.jsx to preview it at /v1, links and all.
+export default function Home({ variant }) {
+  const base = variant ? `/${variant}` : ''
+  const Dialog = variant === 'v1' ? RecipeDialog : RecipeDialogV2
   const { slug } = useParams()
   const navigate = useNavigate()
   const [closing, setClosing] = useState(false)
@@ -73,7 +79,7 @@ export default function Home() {
     setClosing(true)
     setTimeout(() => {
       setClosing(false)
-      navigate('/', { replace: true })
+      navigate(base || '/', { replace: true })
     }, 380)
   }
 
@@ -134,7 +140,7 @@ export default function Home() {
 
           <div className="drinks__grid">
             {recipes.map((recipe, i) => (
-              <DrinkCard key={recipe.slug} recipe={recipe} number={pad(i + 1)} />
+              <DrinkCard key={recipe.slug} recipe={recipe} number={pad(i + 1)} base={base} />
             ))}
           </div>
         </section>
@@ -225,7 +231,7 @@ export default function Home() {
       )}
 
       {active && (
-        <RecipeDialog
+        <Dialog
           recipe={active}
           number={pad(index + 1)}
           closing={closing}

@@ -8,6 +8,10 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/recipes/:slug" element={<Home />} />
+      {/* The previous side-by-side recipe modal, kept for comparison.
+          Uncomment to preview the whole page with it at /v1.
+      <Route path="/v1" element={<Home variant="v1" />} />
+      <Route path="/v1/recipes/:slug" element={<Home variant="v1" />} /> */}
       <Route path="*" element={<Home />} />
     </Routes>
   )
