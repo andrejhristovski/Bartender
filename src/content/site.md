@@ -32,7 +32,8 @@ moments:
 bookTitle: Pour for your room.
 bookText: Private events, bar openings and menu work. Send a date and a rough
   guest count.
-email: hello@example.com
 instagram: ""
+cv: ''
+cvLabel: Download CV
 footerNote: Placeholder content — recipes and photos to follow.
 ---

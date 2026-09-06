@@ -44,7 +44,7 @@
   --font-display: 'Instrument Serif', Georgia, serif;
   --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
 
-  --fs-hero: clamp(56px, 12vw, 148px);
+  --fs-hero: clamp(40px, 9vw, 112px);
   --fs-h2: clamp(38px, 6vw, 68px);
   --fs-h2-sm: clamp(34px, 5vw, 56px);
   --fs-h2-xs: clamp(28px, 4vw, 42px);

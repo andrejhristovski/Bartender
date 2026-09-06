@@ -78,7 +78,7 @@ const person = {
   jobTitle: 'Bartender',
   description: clamp(site.about, 300),
   url: SITE + '/',
-  ...(site.email ? { email: `mailto:${site.email}` } : {}),
+  // No email published here on purpose — scrapers read JSON-LD.
   ...(site.instagram ? { sameAs: [`https://instagram.com/${site.instagram}`] } : {}),
 }
 

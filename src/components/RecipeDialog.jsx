@@ -35,6 +35,8 @@ export default function RecipeDialog({ recipe, number, closing, onClose }) {
           </svg>
         </button>
 
+        {/* Only this wrapper scrolls, so the close button above it stays put. */}
+        <div className="dialog__scroll">
         <div className="dialog__media">
           <div className="dialog__wash" aria-hidden="true" />
           {recipe.image ? (
@@ -76,6 +78,7 @@ export default function RecipeDialog({ recipe, number, closing, onClose }) {
               </div>
             </>
           )}
+        </div>
         </div>
       </div>
     </div>

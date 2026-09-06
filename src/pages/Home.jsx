@@ -4,7 +4,9 @@ import Nav from '../components/Nav'
 import Hero from '../components/Hero'
 import Image from '../components/Image'
 import DrinkCard from '../components/DrinkCard'
+import ContactForm from '../components/ContactForm'
 import RecipeDialog from '../components/RecipeDialog'
+import Lightbox from '../components/Lightbox'
 import { useScrollFx, useReveal } from '../lib/useScrollFx'
 import { site, recipes, ordered } from '../lib/content'
 
@@ -14,12 +16,15 @@ export default function Home() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const [closing, setClosing] = useState(false)
+  const [moment, setMoment] = useState(null)
+  const [momentClosing, setMomentClosing] = useState(false)
 
   const heroBg = useRef(null)
   const heroCopy = useRef(null)
+  const heroPour = useRef(null)
   const progress = useRef(null)
 
-  const navVisible = useScrollFx({ heroBg, heroCopy, progress })
+  const navVisible = useScrollFx({ heroBg, heroCopy, heroPour, progress })
   useReveal([recipes.length])
 
   // Look the open drink up in the full ordered list, not the trimmed homepage
@@ -37,6 +42,15 @@ export default function Home() {
     const id = window.location.hash.slice(1)
     if (id) document.getElementById(id)?.scrollIntoView()
   }, [])
+
+  const closeMoment = () => {
+    if (momentClosing) return
+    setMomentClosing(true)
+    setTimeout(() => {
+      setMomentClosing(false)
+      setMoment(null)
+    }, 380)
+  }
 
   // Let the close animation play out before we drop the dialog from the tree.
   const close = () => {
@@ -56,7 +70,7 @@ export default function Home() {
       <a className="skip-link" href="#cocktails">Skip to the cocktails</a>
       <Nav name={site.name} visible={navVisible} progressRef={progress} />
 
-      <Hero site={site} bgRef={heroBg} copyRef={heroCopy} />
+      <Hero site={site} bgRef={heroBg} copyRef={heroCopy} pourRef={heroPour} />
 
       <main>
         <section className="wrap about reveal" id="about">
@@ -108,12 +122,25 @@ export default function Home() {
               <p>{site.momentsNote}</p>
             </div>
             <div className="moments__strip">
-              {site.moments.map((moment, i) => (
-                <figure className="moment" key={i}>
-                  <div className="moment__glow" aria-hidden="true" />
-                  {moment.image && <Image src={moment.image} alt={moment.label || ''} />}
-                  <figcaption className="moment__label">{moment.label}</figcaption>
-                </figure>
+              {site.moments.map((item, i) => (
+                item.image ? (
+                  <button
+                    type="button"
+                    className="moment"
+                    key={i}
+                    onClick={() => setMoment(item)}
+                    aria-label={`Open photo: ${item.label || 'untitled'}`}
+                  >
+                    <div className="moment__glow" aria-hidden="true" />
+                    <Image src={item.image} alt={item.label || ''} />
+                    <span className="moment__label">{item.label}</span>
+                  </button>
+                ) : (
+                  <figure className="moment" key={i}>
+                    <div className="moment__glow" aria-hidden="true" />
+                    <figcaption className="moment__label">{item.label}</figcaption>
+                  </figure>
+                )
               ))}
             </div>
           </section>
@@ -127,11 +154,8 @@ export default function Home() {
               <h2 className="book__title">{site.bookTitle}</h2>
               <p className="book__text">{site.bookText}</p>
               <div className="book__actions">
-                {site.email && (
-                  <a className="btn btn--solid" href={`mailto:${site.email}`}>{site.email}</a>
-                )}
                 {site.instagram && (
-                  <a className="btn btn--outline" href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noreferrer">
+                  <a className="btn btn--solid" href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noreferrer">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <rect x="2" y="2" width="20" height="20" rx="5" />
                       <circle cx="12" cy="12" r="4" />
@@ -140,7 +164,18 @@ export default function Home() {
                     @{site.instagram}
                   </a>
                 )}
+                {site.cv && (
+                  <a className="btn btn--outline" href={site.cv} download>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M12 3v12" />
+                      <path d="m7 11 5 5 5-5" />
+                      <path d="M5 21h14" />
+                    </svg>
+                    {site.cvLabel || 'Download CV'}
+                  </a>
+                )}
               </div>
+              <ContactForm />
             </div>
           </div>
         </section>
@@ -150,6 +185,10 @@ export default function Home() {
         <span>{site.name}</span>
         <span>{site.footerNote}</span>
       </footer>
+
+      {moment && (
+        <Lightbox moment={moment} closing={momentClosing} onClose={closeMoment} />
+      )}
 
       {active && (
         <RecipeDialog

@@ -63,8 +63,15 @@ collections:
               - { name: image, label: Photo, widget: image, required: false }
           - { name: bookTitle, label: Book — heading, widget: string }
           - { name: bookText, label: Book — text, widget: text }
-          - { name: email, label: Email, widget: string, required: false }
           - { name: instagram, label: Instagram handle, widget: string, required: false, hint: Without the @ }
+          - name: cv
+            label: CV (PDF)
+            widget: file
+            required: false
+            media_folder: /public/media
+            public_folder: /media
+            hint: Optional. Adds a download button next to the Instagram link. Upload a PDF.
+          - { name: cvLabel, label: CV button text, widget: string, required: false, default: Download CV }
           - { name: footerNote, label: Footer line, widget: string, required: false }
 
   - name: cocktails

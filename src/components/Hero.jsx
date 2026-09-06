@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from './Image'
+import HeroPour from './HeroPour'
 
-export default function Hero({ site, bgRef, copyRef }) {
+export default function Hero({ site, bgRef, copyRef, pourRef }) {
   const [motionOK, setMotionOK] = useState(true)
   const videoRef = useRef(null)
 
@@ -54,11 +55,10 @@ export default function Hero({ site, bgRef, copyRef }) {
         <div className="hero__blob hero__blob--3" />
       </div>
 
-      {/* Pour lines — the drifting dashes behind the name. */}
+      {/* Pour lines — dimmed in the design once the illustration was added. */}
       <svg className="hero__pours" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <path d="M-50 520 C 220 380, 380 640, 620 480 S 1020 300, 1260 420" fill="none" stroke="rgba(224,162,96,.45)" strokeWidth="1.5" strokeDasharray="14 22" />
-        <path d="M-50 600 C 260 500, 420 700, 700 560 S 1040 420, 1260 500" fill="none" stroke="rgba(224,162,96,.22)" strokeWidth="1" strokeDasharray="6 30" />
-        <path d="M-50 430 C 180 330, 460 520, 700 400 S 1060 250, 1260 330" fill="none" stroke="rgba(122,138,94,.25)" strokeWidth="1" strokeDasharray="20 40" />
+        <path d="M-50 620 C 260 520, 420 720, 700 580 S 1040 440, 1260 520" fill="none" stroke="rgba(224,162,96,.22)" strokeWidth="1" strokeDasharray="6 30" />
+        <path d="M-50 430 C 180 330, 460 520, 700 400 S 1060 250, 1260 330" fill="none" stroke="rgba(122,138,94,.22)" strokeWidth="1" strokeDasharray="20 40" />
       </svg>
 
       <div className="hero__copy" ref={copyRef}>
@@ -66,6 +66,8 @@ export default function Hero({ site, bgRef, copyRef }) {
         <h1 className="hero__title">{site.name}</h1>
         {site.tagline && <p className="hero__line">{site.tagline}</p>}
       </div>
+
+      <HeroPour svgRef={pourRef} />
 
       <div className="hero__cue" aria-hidden="true">
         <span>Scroll</span>

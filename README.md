@@ -197,6 +197,37 @@ vite-plugin-markdown.js Parses frontmatter during the build, so no YAML
                         parser ships to the browser.
 ```
 
+## The contact form
+
+The Book section has a Netlify Forms form (email + message). Netlify's build bot
+finds it in the prerendered HTML, so no endpoint or server is involved.
+
+**Turn on the email notification once, after the first deploy:**
+
+*Netlify → Forms → contact → Settings → Form notifications → Add notification →
+Email notification*, and enter Antonio's address there.
+
+His address lives in Netlify's settings, never in the page source — which is the
+point. There is deliberately no `mailto:` anywhere on the site, and no email in
+the structured data, because both get harvested.
+
+**Spam handling.** The form carries a honeypot field (`bot-field`), hidden
+off-screen: bots fill it in, humans never see it, and Netlify silently discards
+those submissions. Netlify also runs its own spam filtering and files suspect
+messages under a Spam tab. If real spam ever gets through, add
+`data-netlify-recaptcha="true"` to the form in `src/components/ContactForm.jsx`
+and Netlify renders a captcha — it costs the visitor a click, so it isn't on by
+default.
+
+**The free tier allows 100 submissions a month.** Ample for a portfolio, worth
+knowing before it's linked from somewhere busy.
+
+Submissions also land in the Netlify dashboard under Forms, so nothing is lost
+if an email notification fails.
+
+The form does not work on `localhost` — there's no Netlify to receive the POST,
+so it shows its error state. Test it on the deployed site.
+
 ## SEO
 
 `npm run build` runs three steps: the normal Vite build, an SSR build, then
