@@ -6,7 +6,7 @@ import { GlassIcon } from '../lib/glasses.jsx'
 // and it gives middle-click / open-in-new-tab for free.
 export default function DrinkCard({ recipe, number }) {
   return (
-    <Link className="drink reveal" to={`/recipes/${recipe.slug}`}>
+    <Link className="drink" to={`/recipes/${recipe.slug}`}>
       <div className="drink__frame">
         <div className="drink__wash" aria-hidden="true" />
         {recipe.image ? (

@@ -72,8 +72,7 @@ export function useReveal(deps = []) {
       { threshold: 0, rootMargin: '0px 0px -8% 0px' }
     )
 
-    els.forEach((el, i) => {
-      if (!el.classList.contains('rule')) el.style.transitionDelay = `${(i % 6) * 70}ms`
+    els.forEach((el) => {
       el.classList.add('is-armed') // only now is it safe to hide it
       io.observe(el)
     })
