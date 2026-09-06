@@ -80,12 +80,7 @@ collections:
               - { name: image, label: Photo, widget: image, required: false }
           - { name: bookTitle, label: Book — heading, widget: string }
           - { name: bookText, label: Book — text, widget: text }
-          - name: formEndpoint
-            label: Contact form endpoint
-            widget: string
-            required: false
-            hint: The form's URL from formspree.io (looks like https://formspree.io/f/abcdefgh). Leave empty and the contact form is hidden.
-          - { name: instagram, label: Instagram handle, widget: string, required: false, hint: Without the @ }
+          - { name: instagram, label: Instagram handle, widget: string, required: false, hint: 'Handle or full link — both work' }
           - name: cv
             label: CV (PDF)
             widget: file

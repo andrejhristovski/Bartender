@@ -5,11 +5,11 @@ import Hero from '../components/Hero'
 import Image from '../components/Image'
 import CraftVideo from '../components/CraftVideo'
 import DrinkCard from '../components/DrinkCard'
-import ContactForm from '../components/ContactForm'
 import RecipeDialog from '../components/RecipeDialog'
 import Lightbox from '../components/Lightbox'
 import { useScrollFx, useReveal } from '../lib/useScrollFx'
 import { site, recipes, ordered } from '../lib/content'
+import { instagramUrl } from '../lib/instagram'
 
 const pad = (n) => String(n).padStart(2, '0')
 
@@ -157,8 +157,8 @@ export default function Home() {
               <h2 className="book__title">{site.bookTitle}</h2>
               <p className="book__text">{site.bookText}</p>
               <div className="book__actions">
-                {site.instagram && (
-                  <a className="btn btn--solid" href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noreferrer">
+                {instagramUrl(site.instagram) && (
+                  <a className="btn btn--solid" href={instagramUrl(site.instagram)} target="_blank" rel="noreferrer">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <rect x="2" y="2" width="20" height="20" rx="5" />
                       <circle cx="12" cy="12" r="4" />
@@ -178,7 +178,6 @@ export default function Home() {
                   </a>
                 )}
               </div>
-              {site.formEndpoint && <ContactForm endpoint={site.formEndpoint} />}
             </div>
           </div>
         </section>

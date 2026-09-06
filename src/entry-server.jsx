@@ -14,3 +14,4 @@ export function render(url) {
 // Re-exported so the prerender script uses the exact same slugs and content the
 // app uses — no second copy of the slug rules to drift out of sync.
 export { ordered as drinks, site } from './lib/content'
+export { instagramUrl } from './lib/instagram'

@@ -18,7 +18,7 @@ const host = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
 const vercelUrl = host ? `https://${host}` : null
 const SITE = (process.env.SITE_URL || process.env.URL || vercelUrl || 'https://antonionikolovski.netlify.app').replace(/\/$/, '')
 
-const { render, drinks, site } = await import(path.join(root, 'dist-ssr/entry-server.js'))
+const { render, drinks, site, instagramUrl } = await import(path.join(root, 'dist-ssr/entry-server.js'))
 
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 
@@ -85,7 +85,7 @@ const person = {
   description: clamp(site.about, 300),
   url: SITE + '/',
   // No email published here on purpose — scrapers read JSON-LD.
-  ...(site.instagram ? { sameAs: [`https://instagram.com/${site.instagram}`] } : {}),
+  ...(instagramUrl(site.instagram) ? { sameAs: [instagramUrl(site.instagram)] } : {}),
 }
 
 write('/', page('/', {
