@@ -10,7 +10,13 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const dist = path.join(root, 'dist')
 
 // Netlify exposes the production URL as $URL at build time.
-const SITE = (process.env.SITE_URL || process.env.URL || 'https://antonionikolovski.netlify.app').replace(/\/$/, '')
+// Set SITE_URL explicitly for the most reliable result. Otherwise: $URL is
+// Netlify's, VERCEL_PROJECT_PRODUCTION_URL is Vercel's stable production host,
+// and VERCEL_URL is the per-deployment host (a last resort — on a preview build
+// it would bake preview URLs into the canonicals).
+const host = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
+const vercelUrl = host ? `https://${host}` : null
+const SITE = (process.env.SITE_URL || process.env.URL || vercelUrl || 'https://antonionikolovski.netlify.app').replace(/\/$/, '')
 
 const { render, drinks, site } = await import(path.join(root, 'dist-ssr/entry-server.js'))
 

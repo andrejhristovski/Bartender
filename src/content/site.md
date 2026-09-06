@@ -37,6 +37,7 @@ moments:
 bookTitle: Pour for your room.
 bookText: Private events, bar openings and menu work. Send a date and a rough
   guest count.
+formEndpoint: ''
 instagram: https://www.instagram.com/antonio.nikolovski/
 cv: ""
 cvLabel: Download CV

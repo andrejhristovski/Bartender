@@ -178,7 +178,7 @@ export default function Home() {
                   </a>
                 )}
               </div>
-              <ContactForm />
+              {site.formEndpoint && <ContactForm endpoint={site.formEndpoint} />}
             </div>
           </div>
         </section>
