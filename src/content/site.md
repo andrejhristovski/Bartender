@@ -13,6 +13,11 @@ about: Antonio trained in small rooms with short menus, where a drink had to
   fermentation, low-intervention spirits and whatever the market gives up that
   week.
 aboutSecondary: Available for menu consultancy, openings and private events.
+craftKicker: In the hands
+craftTitle: Watch the build
+craftNote: A silent loop from behind the bar.
+craftVideo: /media/craft.mp4
+craftPoster: ''
 listKicker: Signature list
 listTitle: Drinks on rotation
 listNote: Tap any drink for the full build.

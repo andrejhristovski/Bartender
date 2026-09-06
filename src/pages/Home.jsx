@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Hero from '../components/Hero'
 import Image from '../components/Image'
+import CraftVideo from '../components/CraftVideo'
 import DrinkCard from '../components/DrinkCard'
 import ContactForm from '../components/ContactForm'
 import RecipeDialog from '../components/RecipeDialog'
@@ -97,6 +98,8 @@ export default function Home() {
             {site.aboutSecondary && <p className="about__text about__text--soft">{site.aboutSecondary}</p>}
           </div>
         </section>
+
+        {site.craftVideo && <CraftVideo site={site} />}
 
         <section className="wrap drinks reveal" id="cocktails">
           <div className="drinks__head">

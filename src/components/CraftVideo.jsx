@@ -1,0 +1,70 @@
+import { useEffect, useRef, useState } from 'react'
+
+// "Watch the build" — a silent 16:9 loop. The placeholder underneath stays
+// visible until the video actually has frames, so a slow connection shows the
+// designed panel rather than a black box.
+export default function CraftVideo({ site }) {
+  const videoRef = useRef(null)
+  const [ready, setReady] = useState(false)
+  const [motionOK, setMotionOK] = useState(true)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const saveData = navigator.connection?.saveData === true
+    const update = () => setMotionOK(!mq.matches && !saveData)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    const onData = () => video.videoWidth > 0 && setReady(true)
+    video.addEventListener('loadeddata', onData)
+    if (motionOK) video.play?.().catch(() => {})
+    return () => video.removeEventListener('loadeddata', onData)
+  }, [motionOK])
+
+  return (
+    <section className="wrap craft reveal" id="craft">
+      <div className="craft__head">
+        <div>
+          <p className="eyebrow">{site.craftKicker}</p>
+          <span className="rule rule--craft reveal" aria-hidden="true" />
+          <h2 className="craft__title">{site.craftTitle}</h2>
+        </div>
+        {site.craftNote && <p className="craft__note">{site.craftNote}</p>}
+      </div>
+
+      <div className="craft__frame">
+        <video
+          ref={videoRef}
+          src={site.craftVideo}
+          poster={site.craftPoster || undefined}
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          // Reduced motion or a metered connection: don't autoplay, but still
+          // let them watch it if they choose.
+          autoPlay={motionOK}
+          controls={!motionOK}
+        />
+
+        <div className={`craft__placeholder${ready ? ' is-hidden' : ''}`} aria-hidden="true">
+          <div className="craft__glow" />
+          <div className="craft__ph-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(224,162,96,.62)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="5" width="15" height="14" rx="3" />
+              <path d="m17 11 5-3v8l-5-3z" />
+            </svg>
+            <span className="craft__ph-label">{site.craftTitle}</span>
+          </div>
+        </div>
+
+        <div className="craft__vignette" aria-hidden="true" />
+      </div>
+    </section>
+  )
+}

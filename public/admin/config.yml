@@ -49,6 +49,23 @@ collections:
           - { name: aboutTitle, label: About heading, widget: string }
           - { name: about, label: About text, widget: text }
           - { name: aboutSecondary, label: About — second line, widget: text, required: false }
+          - { name: craftKicker, label: Video — small label, widget: string, required: false }
+          - { name: craftTitle, label: Video — heading, widget: string, required: false }
+          - { name: craftNote, label: Video — note on the right, widget: string, required: false }
+          - name: craftVideo
+            label: Video clip
+            widget: file
+            required: false
+            media_folder: /public/media
+            public_folder: /media
+            hint: A short silent clip that loops, 16:9. Leave empty and the whole section is hidden.
+          - name: craftPoster
+            label: Video still
+            widget: image
+            required: false
+            media_folder: /public/media
+            public_folder: /media
+            hint: Optional. Shown while the clip loads.
           - { name: listKicker, label: Cocktails — small label, widget: string }
           - { name: listTitle, label: Cocktails — heading, widget: string }
           - { name: listNote, label: Cocktails — note on the right, widget: string, required: false }
