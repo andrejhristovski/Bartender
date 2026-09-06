@@ -4,6 +4,7 @@ import Nav from '../components/Nav'
 import Hero from '../components/Hero'
 import Image from '../components/Image'
 import CraftVideo from '../components/CraftVideo'
+import ContactForm from '../components/ContactForm'
 import DrinkCard from '../components/DrinkCard'
 import RecipeDialog from '../components/RecipeDialog'
 import Lightbox from '../components/Lightbox'
@@ -178,6 +179,7 @@ export default function Home() {
                   </a>
                 )}
               </div>
+              <ContactForm />
             </div>
           </div>
         </section>

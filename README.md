@@ -197,48 +197,32 @@ vite-plugin-markdown.js Parses frontmatter during the build, so no YAML
                         parser ships to the browser.
 ```
 
-## Deploying on Vercel
-
-`vercel.json` sets the build (`npm run build`, output `dist`) and
-`cleanUrls: true`, so `/recipes/x` is served from `recipes/x.html` with no
-redirect — matching the canonical URLs the prerender writes. The Decap OAuth
-handshake lives in `api/auth.js` and `api/callback.js`.
-
-**Setup, once:**
-
-1. Import the repo on Vercel. Leave the build settings alone.
-2. *Settings → Environment Variables*: add `GITHUB_CLIENT_ID` and
-   `GITHUB_CLIENT_SECRET` (CMS login), and `SITE_URL` set to the final domain
-   (e.g. `https://antonio-nikolovski.vercel.app`). `SITE_URL` is what the
-   canonical tags and sitemap use; without it the build guesses from Vercel's
-   own variables.
-3. Update the GitHub OAuth app's **Homepage URL** and **Authorization callback
-   URL** to `https://<your-domain>` and `https://<your-domain>/api/callback`.
-4. Redeploy — functions only pick up environment variables on a fresh build.
-
-The `netlify.toml` and `netlify/functions/` files are still in the repo. Vercel
-ignores them; they're kept so the Netlify deploy isn't broken mid-move. Delete
-them once the move is finished.
-
 ## The contact form
 
-The form posts to whatever URL is in **Contact form endpoint** under Site text.
-It's built for [Formspree](https://formspree.io), whose free tier covers 50
-submissions a month.
+The Book section has a Netlify Forms form (email + message). Netlify's build bot
+finds it in the prerendered HTML, so no endpoint or third-party service is
+involved.
 
-**Setup, once:** create a Formspree account, add a form, point it at Antonio's
-email, and paste the endpoint it gives you (`https://formspree.io/f/xxxxxxxx`)
-into that CMS field. Leave the field empty and the form is hidden entirely —
-the Instagram and CV buttons still show.
+**Turn on the email notification once, after the first deploy:**
 
-His address lives in Formspree's settings, never in the page source. There is no
-`mailto:` anywhere on the site and no email in the structured data, because both
-get harvested.
+*Netlify → Forms → contact → Settings → Form notifications → Add notification →
+Email notification*, and enter Antonio's address there.
 
-The form carries a `_gotcha` honeypot field, hidden off-screen: bots fill it,
-humans never see it, and Formspree discards those submissions.
+His address lives in Netlify's settings, never in the page source. There is
+deliberately no `mailto:` anywhere on the site and no email in the structured
+data, because both get harvested.
 
-This replaced Netlify Forms, which only works on Netlify.
+**Spam handling.** The form carries a honeypot field (`bot-field`) hidden
+off-screen: bots fill it, humans never see it, and Netlify silently discards
+those submissions. Netlify also runs its own spam filtering and files suspect
+messages under a Spam tab. If real spam gets through, add
+`data-netlify-recaptcha="true"` to the form in `src/components/ContactForm.jsx`.
+
+**The free tier allows 100 submissions a month.** Submissions also land in the
+Netlify dashboard under Forms, so nothing is lost if an email notification fails.
+
+The form does not work on `localhost` — there's no Netlify to receive the POST,
+so it shows its error state. Test it on the deployed site.
 
 ## SEO
 
@@ -272,7 +256,7 @@ page is visible before JavaScript runs and there's no flash on load.
 
 Canonical tags, OG tags and the sitemap need absolute URLs. The prerender uses
 `$URL`, which Netlify sets to the production address at build time, and falls
-back to `https://antonionikolovski.netlify.app`. **If you move to a custom
+back to `https://antonio-nikolovski.netlify.app`. **If you move to a custom
 domain, no code change is needed** — Netlify updates `$URL` — but do rerun a
 deploy so the tags regenerate.
 

@@ -435,6 +435,40 @@ button.moment:hover { border-color: rgba(224, 162, 96, 0.32); }
 .btn--outline:hover { background: rgba(198, 113, 57, 0.14); border-color: rgba(224, 162, 96, 0.6); color: var(--c-ink); }
 .btn svg { width: 18px; height: 18px; }
 
+/* ── Contact form ─────────────────────────────────────────────────────────── */
+.contact { margin-top: var(--sp-8, 34px); display: grid; gap: 16px; max-width: 460px; }
+.contact__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.contact__field { display: grid; gap: 8px; }
+.contact__field > span {
+  font-size: var(--fs-eyebrow); letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--c-ink-45);
+}
+.contact input[type='email'],
+.contact textarea {
+  width: 100%; font: inherit; font-size: var(--fs-sm);
+  color: var(--c-ink); caret-color: var(--c-accent);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--c-line-mid);
+  padding: 13px 18px;
+  transition: border-color 240ms ease, background 240ms ease;
+}
+.contact input[type='email'] { border-radius: var(--r-pill); }
+.contact textarea { border-radius: var(--r-card); resize: vertical; min-height: 110px; }
+.contact input::placeholder,
+.contact textarea::placeholder { color: var(--c-ink-30); }
+.contact input:hover,
+.contact textarea:hover { border-color: var(--c-line-strong); }
+.contact input:focus-visible,
+.contact textarea:focus-visible {
+  outline: none; border-color: var(--c-accent); background: rgba(0, 0, 0, 0.35);
+}
+
+.contact__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.contact__foot .btn { border: 0; cursor: pointer; font-family: inherit; }
+.contact__foot .btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+.contact__status { font-size: var(--fs-xs); color: var(--c-ink-55); }
+
 /* ── Footer ───────────────────────────────────────────────────────────────── */
 .footer {
   position: relative; z-index: 2; border-top: 1px solid var(--c-line-soft);

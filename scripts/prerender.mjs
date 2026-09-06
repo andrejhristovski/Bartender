@@ -15,8 +15,7 @@ const dist = path.join(root, 'dist')
 // and VERCEL_URL is the per-deployment host (a last resort — on a preview build
 // it would bake preview URLs into the canonicals).
 const host = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
-const vercelUrl = host ? `https://${host}` : null
-const SITE = (process.env.SITE_URL || process.env.URL || vercelUrl || 'https://antonionikolovski.netlify.app').replace(/\/$/, '')
+const SITE = (process.env.SITE_URL || process.env.URL || 'https://antonio-nikolovski.netlify.app').replace(/\/$/, '')
 
 const { render, drinks, site, instagramUrl } = await import(path.join(root, 'dist-ssr/entry-server.js'))
 

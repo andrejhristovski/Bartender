@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>Antonio Nikolovski — Content</title>
+    <!-- Pin the config path. Decap otherwise resolves "config.yml" relative to
+         the page URL, and this page is served at /admin with no trailing slash,
+         which resolves to /config.yml and 404s. -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
   <body>
     <script>
