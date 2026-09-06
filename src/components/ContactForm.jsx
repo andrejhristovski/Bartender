@@ -1,10 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Netlify Forms: the build bot finds this form in the prerendered HTML and
 // wires up an endpoint. Antonio's address is set in Netlify's notification
 // settings, never in the page source, so nothing here is scrapeable.
 export default function ContactForm() {
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
+
+  // Either notice has said its piece after a few seconds; clearing it leaves the
+  // form looking ready to use again.
+  useEffect(() => {
+    if (status !== 'sent' && status !== 'error') return
+    const timer = setTimeout(() => setStatus('idle'), 3000)
+    return () => clearTimeout(timer)
+  }, [status])
 
   const onSubmit = async (event) => {
     event.preventDefault()

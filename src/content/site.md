@@ -33,8 +33,7 @@ moments:
   - label: Last call
     image: /images/event-2.jpg
 bookTitle: Pour for your room.
-bookText: Private events, bar openings and menu work. Send a date and a rough
-  guest count.
+bookText: Private events, bar openings and menu work. Contact me on Instagram or via email
 instagram: https://www.instagram.com/antonio.nikolovski/
 cv: ""
 cvLabel: Download CV
