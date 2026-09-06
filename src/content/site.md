@@ -17,7 +17,7 @@ craftKicker: In the hands
 craftTitle: Watch the build
 craftNote: A silent loop from behind the bar.
 craftVideo: /media/craft.mp4
-craftPoster: ''
+craftPoster: ""
 listKicker: Signature list
 listTitle: Drinks on rotation
 listNote: Tap any drink for the full build.
@@ -37,8 +37,8 @@ moments:
 bookTitle: Pour for your room.
 bookText: Private events, bar openings and menu work. Send a date and a rough
   guest count.
-instagram: ""
-cv: ''
+instagram: https://www.instagram.com/antonio.nikolovski/
+cv: ""
 cvLabel: Download CV
 footerNote: Placeholder content — recipes and photos to follow.
 ---
