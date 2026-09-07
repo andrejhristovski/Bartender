@@ -214,10 +214,9 @@ export default function Home({ variant }) {
         </section>
       </main>
 
-      {hasAny(site.name, site.footerNote) && (
+      {hasAny(site.name) && (
         <footer className="footer">
           {has(site.name) && <span>{site.name}</span>}
-          {has(site.footerNote) && <span>{site.footerNote}</span>}
         </footer>
       )}
 

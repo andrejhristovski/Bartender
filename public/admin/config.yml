@@ -89,7 +89,6 @@ collections:
             public_folder: /media
             hint: Optional. Adds a download button next to the Instagram link. Upload a PDF.
           - { name: cvLabel, label: CV button text, widget: string, required: false, default: Download CV }
-          - { name: footerNote, label: Footer line, widget: string, required: false }
 
   - name: cocktails
     label: Cocktails

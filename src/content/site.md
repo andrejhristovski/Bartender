@@ -37,5 +37,4 @@ bookText: Private events, bar openings and menu work. Contact me on Instagram or
 instagram: https://www.instagram.com/antonio.nikolovski/
 cv: ""
 cvLabel: Download CV
-footerNote: Placeholder content — recipes and photos to follow.
 ---
